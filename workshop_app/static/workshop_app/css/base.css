@@ -1,19 +1,87 @@
 /**
- * Footer Styles
+ * Base Styles
  */
 .navbar {
     z-index: 1000;
 }
+
 .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #61615F;
+    background-color: #343a40;
     color: white;
     text-align: center;
-    z-index: 100;
 }
+
 .base-content {
     padding-top: 5em;
-    padding-bottom: 5em;
+    padding-bottom: 2em;
+}
+
+/* Button improvements */
+.btn {
+    transition: all 0.2s ease-in-out;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Card improvements */
+.card {
+    transition: box-shadow 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Form input improvements */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* Link improvements */
+a {
+    transition: color 0.2s ease-in-out;
+}
+
+/* Navbar link improvements */
+.nav-link {
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Heading improvements */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-bottom: 0.5em;
+}
+
+/* Badge improvements */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
 }

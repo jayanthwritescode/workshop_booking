@@ -17,25 +17,24 @@
         {% endif %}
     </div>
 
-	<!-- Mobile card layout -->
+	<!-- Mobile card layout with React -->
 	<div class="row d-md-none">
-		{% for w in workshop_type %}
-		<div class="col-12 mb-3">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">{{ w.name }}</h5>
-					<p class="card-text text-muted">
-						<span class="material-icons align-middle mr-1" style="font-size: 16px;">schedule</span>
-						{{ w.duration }} day{{ w.duration|pluralize }}
-					</p>
-					<a href="{% url 'workshop_app:workshop_type_details' w.id %}" class="btn btn-outline-primary btn-sm">
-						View Details
-					</a>
-				</div>
-			</div>
-		</div>
-		{% endfor %}
+		<div id="react-workshop-cards" class="col-12"></div>
 	</div>
+
+	<script type="text/javascript">
+		// Pass workshop data from Django to React
+		window.workshopData = [
+			{% for w in workshop_type %}
+			{
+				id: {{ w.id }},
+				name: "{{ w.name|escapejs }}",
+				duration: {{ w.duration }}
+			}{% if not forloop.last %},{% endif %}
+			{% endfor %}
+		];
+		window.workshopDetailsBaseUrl = "{% url 'workshop_app:workshop_type_details' 0 %}".replace('0', '');
+	</script>
 
 	<!-- Desktop table layout -->
 	<div class="d-none d-md-block">
@@ -109,7 +108,21 @@
 
 <script type="text/babel">
     // Mount React Badge component as demo
-    const root = ReactDOM.createRoot(document.getElementById('react-demo-badge'));
-    root.render(React.createElement(ReactBadge, { text: 'Live', variant: 'success' }));
+    const badgeRoot = ReactDOM.createRoot(document.getElementById('react-demo-badge'));
+    badgeRoot.render(React.createElement(ReactBadge, { text: 'Live', variant: 'success' }));
+
+    // Mount React Workshop Cards for mobile layout
+    if (window.workshopData && window.workshopDetailsBaseUrl) {
+        const cardsRoot = ReactDOM.createRoot(document.getElementById('react-workshop-cards'));
+        const workshopCards = window.workshopData.map(workshop =>
+            React.createElement('div', { className: 'mb-3', key: workshop.id },
+                React.createElement(ReactWorkshopCard, {
+                    workshop: workshop,
+                    detailsUrl: window.workshopDetailsBaseUrl + workshop.id
+                })
+            )
+        );
+        cardsRoot.render(React.createElement(React.Fragment, null, workshopCards));
+    }
 </script>
 {% endblock %}
