@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import SearchBar from './components/SearchBar';
-import FilterPanel from './components/FilterPanel';
 import FilterChips from './components/FilterChips';
 import WorkshopCard from './components/WorkshopCard';
 import WorkshopCardSkeleton from './components/WorkshopCardSkeleton';
@@ -418,8 +417,11 @@ const Workshops = () => {
     setSearchQuery(query);
   };
 
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
+  const handleFilterChange = (key, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
   };
 
   const handleRemoveFilter = (filterKey) => {
@@ -443,16 +445,16 @@ const Workshops = () => {
 
   // Filter workshops based on search and filters
   const filteredWorkshops = mockWorkshops.filter(workshop => {
-    const matchesSearch = !searchQuery || 
+    const matchesSearch = !searchQuery ||
       workshop.workshopType.toLowerCase().includes(searchQuery.toLowerCase()) ||
       workshop.coordinator.toLowerCase().includes(searchQuery.toLowerCase()) ||
       workshop.institute.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesFilters = 
+
+    const matchesFilters =
       (!filters.workshopType || workshop.workshopType.toLowerCase().includes(filters.workshopType.toLowerCase())) &&
-      (!filters.state || workshop.institute.toLowerCase().includes(filters.state.toLowerCase())) &&
-      (!filters.status || workshop.status.toLowerCase() === filters.status.toLowerCase());
-    
+      (!filters.institute || workshop.institute.toLowerCase().includes(filters.institute.toLowerCase())) &&
+      (!filters.status || workshop.status === filters.status);
+
     return matchesSearch && matchesFilters;
   });
 
@@ -613,7 +615,7 @@ const Workshops = () => {
             <div className="filter-header">
               <h3>Filters</h3>
               <button className="filter-close" onClick={() => setShowMobileFilters(false)} aria-label="Close Filters">
-                <span className="close-icon">close</span>
+                <span className="close-icon">×</span>
               </button>
             </div>
 

@@ -5,16 +5,12 @@ const FilterChips = ({ filters, onRemoveFilter, onClearAll }) => {
     switch (key) {
       case 'workshopType':
         return `Type: ${value}`;
-      case 'state':
-        return `State: ${value}`;
       case 'status':
         return `Status: ${value}`;
-      case 'fromDate':
-        return `From: ${value}`;
-      case 'toDate':
-        return `To: ${value}`;
+      case 'institute':
+        return `Institute: ${value}`;
       default:
-        return value;
+        return `${key}: ${value}`;
     }
   };
 
@@ -25,27 +21,58 @@ const FilterChips = ({ filters, onRemoveFilter, onClearAll }) => {
   }
 
   return (
-    <div className="filter-chips">
-      <div className="filter-chips-container">
-        {activeFilters.map(([key, value]) => (
-          <div key={key} className="filter-chip">
-            <span className="filter-chip-text">
-              {getFilterLabel(key, value)}
-            </span>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
+      {activeFilters.map(([key, value]) => {
+        const label = getFilterLabel(key, value);
+        return (
+          <span
+            key={key}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '4px 8px',
+              backgroundColor: 'white',
+              border: '1px solid #e0e0e0',
+              borderRadius: '4px',
+              fontSize: '12px',
+              color: '#333',
+              fontWeight: '500'
+            }}
+          >
+            {label}
             <button
-              className="filter-chip-remove"
               onClick={() => onRemoveFilter(key)}
               aria-label={`Remove ${key} filter`}
+              type="button"
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#999',
+                cursor: 'pointer',
+                padding: '0',
+                fontSize: '14px',
+                lineHeight: '1',
+                marginLeft: '4px'
+              }}
             >
-              <span className="remove-icon">close</span>
+              ×
             </button>
-          </div>
-        ))}
-      </div>
+          </span>
+        );
+      })}
       {activeFilters.length > 1 && (
         <button
-          className="btn btn-sm btn-outline"
           onClick={onClearAll}
+          type="button"
+          style={{
+            padding: '4px 12px',
+            backgroundColor: 'transparent',
+            border: '1px solid #e0e0e0',
+            borderRadius: '4px',
+            fontSize: '12px',
+            cursor: 'pointer'
+          }}
         >
           Clear All
         </button>

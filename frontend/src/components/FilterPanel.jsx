@@ -56,7 +56,7 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
             <div className="filter-header">
               <h3>Filters</h3>
               <button className="filter-close" onClick={handleToggle} aria-label="Close Filters">
-                <span className="close-icon">close</span>
+                <span className="close-icon">×</span>
               </button>
             </div>
 

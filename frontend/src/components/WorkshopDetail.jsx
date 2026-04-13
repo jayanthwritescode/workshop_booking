@@ -272,7 +272,7 @@ END:VCALENDAR`;
             <div className="modal-header">
               <h2>Register for Workshop</h2>
               <button className="modal-close" onClick={() => setShowRegistrationModal(false)} aria-label="Close">
-                <span className="close-icon">close</span>
+                <span className="close-icon">×</span>
               </button>
             </div>
             <div className="modal-body">
