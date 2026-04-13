@@ -53,7 +53,7 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
           <div className="filter-panel" onClick={(e) => e.stopPropagation()}>
             <div className="filter-header">
               <h3>Filters</h3>
-              <button className="filter-close" onClick={handleToggle} aria-label="Close filters">
+              <button className="filter-close" onClick={handleToggle} aria-label="Close Filters">
                 <span className="close-icon">close</span>
               </button>
             </div>

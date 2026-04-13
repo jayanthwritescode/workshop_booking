@@ -23,7 +23,7 @@ const SearchBar = ({ onSearch, placeholder = "Search workshops..." }) => {
           onChange={handleChange}
           aria-label="Search"
         />
-        <button type="submit" className="search-button" aria-label="Submit search">
+        <button type="submit" className="search-button" aria-label="Search">
           <span className="search-icon">search</span>
         </button>
       </div>

@@ -16,19 +16,17 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center">
-          <Link to="/" className="navbar-brand">
-            FOSSEE Workshops
-          </Link>
-          
-          <button 
-            className="navbar-toggle"
-            onClick={toggleMenu}
-            aria-label="Toggle navigation"
-          >
-            <span className="hamburger"></span>
-          </button>
-        </div>
+        <Link to="/" className="navbar-brand">
+          FOSSEE Workshops
+        </Link>
+        
+        <button 
+          className="navbar-toggle"
+          onClick={toggleMenu}
+          aria-label="Toggle navigation"
+        >
+          <span className="hamburger"></span>
+        </button>
 
         <div className={`navbar-collapse ${isOpen ? 'open' : ''}`}>
           <ul className="navbar-nav">
