@@ -8,6 +8,7 @@ import WorkshopCardSkeleton from './components/WorkshopCardSkeleton';
 import EmptyState from './components/EmptyState';
 import WorkshopDetail from './components/WorkshopDetail';
 import Dashboard from './components/Dashboard';
+import Login from './components/Login';
 
 // Home page with meaningful content
 const Home = () => {
@@ -852,17 +853,16 @@ const WorkshopTypes = () => {
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/workshops" element={<Workshops />} />
-          <Route path="/workshops/:id" element={<WorkshopDetail />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/status" element={<Status />} />
-          <Route path="/workshop-types" element={<WorkshopTypes />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/workshops" element={<Layout><Workshops /></Layout>} />
+        <Route path="/workshops/:id" element={<Layout><WorkshopDetail /></Layout>} />
+        <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+        <Route path="/statistics" element={<Layout><Statistics /></Layout>} />
+        <Route path="/status" element={<Layout><Status /></Layout>} />
+        <Route path="/workshop-types" element={<Layout><WorkshopTypes /></Layout>} />
+      </Routes>
     </Router>
   );
 }
