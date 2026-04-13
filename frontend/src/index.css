@@ -1103,28 +1103,35 @@ h6 { font-size: 0.875rem; }
 
 /* Badge styles */
 .badge {
-  display: inline-block;
-  padding: 3px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
   font-size: 0.6875rem;
   font-weight: 500;
   border-radius: var(--border-radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  line-height: 1;
 }
 
 .badge-accepted {
   background-color: var(--color-accepted-light);
   color: var(--color-accepted-dark);
+  border-color: var(--color-accepted);
 }
 
 .badge-proposed {
   background-color: var(--color-proposed-light);
   color: var(--color-proposed-dark);
+  border-color: var(--color-proposed);
 }
 
 .badge-completed {
   background-color: var(--color-completed-light);
   color: var(--color-completed-dark);
+  border-color: var(--color-completed);
 }
 
 .workshop-details {
@@ -1486,6 +1493,7 @@ h6 { font-size: 0.875rem; }
 .workshop-detail-page {
   max-width: 1200px;
   margin: 0 auto;
+  padding-bottom: 80px;
 }
 
 .workshop-detail-header {
@@ -1697,6 +1705,65 @@ h6 { font-size: 0.875rem; }
 
   .workshop-detail-meta {
     gap: var(--space-3);
+  }
+
+  .workshop-detail-header {
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .workshop-detail-content {
+    margin-left: var(--space-3);
+  }
+
+  .workshop-detail-accent-strip {
+    width: 4px;
+  }
+
+  .mobile-sticky-registration {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-3);
+    background: white;
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+
+  .workshop-detail-registration {
+    display: none;
+  }
+
+  .modal {
+    margin: var(--space-2);
+    max-height: calc(100vh - var(--space-4));
+    overflow-y: auto;
+  }
+
+  .modal-header {
+    padding: var(--space-3);
+  }
+
+  .modal-body {
+    padding: var(--space-3);
+  }
+
+  .modal-footer {
+    padding: var(--space-3);
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-sticky-registration {
+    display: none;
   }
 }
 

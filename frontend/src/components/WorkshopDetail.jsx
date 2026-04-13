@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const WorkshopDetail = () => {
+const WorkshopDetail = React.memo(() => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
@@ -229,7 +229,7 @@ END:VCALENDAR`;
           </div>
 
           <div className="workshop-detail-sidebar">
-            <div className="card">
+            <div className="card workshop-detail-registration">
               <div className="card-body">
                 <h3>Registration</h3>
                 <p className="text-muted mb-3">
@@ -264,6 +264,16 @@ END:VCALENDAR`;
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile sticky registration button */}
+      <div className="mobile-sticky-registration">
+        <button 
+          className="btn btn-primary w-100" 
+          onClick={handleRegister}
+        >
+          {getCTAText(workshop.status, workshop.seatsAvailable)}
+        </button>
       </div>
 
       {showRegistrationModal && (
@@ -306,6 +316,6 @@ END:VCALENDAR`;
       )}
     </div>
   );
-};
+});
 
 export default WorkshopDetail;
