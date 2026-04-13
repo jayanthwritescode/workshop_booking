@@ -62,76 +62,45 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
 
             <div className="filter-body">
               <div className="filter-section">
-                <h4>Software</h4>
-                <div className="form-group">
-                  <label className="form-label">Tool</label>
-                  <select
-                    className="form-control"
-                    value={localFilters.workshopType}
-                    onChange={(e) => handleChange('workshopType', e.target.value)}
-                  >
-                    <option value="">All Tools</option>
-                    <option value="python">Python</option>
-                    <option value="scilab">Scilab</option>
-                    <option value="openfoam">OpenFOAM</option>
-                    <option value="dwsim">DWSIM</option>
-                    <option value="openmodelica">OpenModelica</option>
-                    <option value="eos">eSim</option>
-                  </select>
+                <h4>Status</h4>
+                <div className="filter-item" onClick={() => handleFilterChange('status', localFilters.status === 'Accepted' ? '' : 'Accepted')}>
+                  <div className={`filter-checkbox ${localFilters.status === 'Accepted' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Accepted</span>
+                  <span className="filter-count">89</span>
                 </div>
-
-                <div className="form-group">
-                  <label className="form-label">Status</label>
-                  <select
-                    className="form-control"
-                    value={localFilters.status}
-                    onChange={(e) => handleChange('status', e.target.value)}
-                  >
-                    <option value="">All Status</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="proposed">Proposed</option>
-                    <option value="completed">Completed</option>
-                  </select>
+                <div className="filter-item" onClick={() => handleFilterChange('status', localFilters.status === 'Proposed' ? '' : 'Proposed')}>
+                  <div className={`filter-checkbox ${localFilters.status === 'Proposed' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Proposed</span>
+                  <span className="filter-count">34</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('status', localFilters.status === 'Completed' ? '' : 'Completed')}>
+                  <div className={`filter-checkbox ${localFilters.status === 'Completed' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Completed</span>
+                  <span className="filter-count">33</span>
                 </div>
               </div>
 
               <div className="filter-section">
-                <h4>Location</h4>
-                <div className="form-group">
-                  <label className="form-label">Institute</label>
-                  <select
-                    className="form-control"
-                    value={localFilters.institute}
-                    onChange={(e) => handleChange('institute', e.target.value)}
-                  >
-                    <option value="">All Institutes</option>
-                    <option value="iit-bombay">IIT Bombay</option>
-                    <option value="iit-delhi">IIT Delhi</option>
-                    <option value="iit-madras">IIT Madras</option>
-                    <option value="iit-kharagpur">IIT Kharagpur</option>
-                    <option value="iit-kanpur">IIT Kanpur</option>
-                    <option value="iit-roorkee">IIT Roorkee</option>
-                  </select>
+                <h4>Workshop Type</h4>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', localFilters.workshopType === 'Python' ? '' : 'Python')}>
+                  <div className={`filter-checkbox ${localFilters.workshopType === 'Python' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Python</span>
+                  <span className="filter-count">45</span>
                 </div>
-
-                <div className="form-group">
-                  <label className="form-label">State</label>
-                  <select
-                    className="form-control"
-                    value={localFilters.state}
-                    onChange={(e) => handleChange('state', e.target.value)}
-                  >
-                    <option value="">All States</option>
-                    <option value="andhra-pradesh">Andhra Pradesh</option>
-                    <option value="bihar">Bihar</option>
-                    <option value="delhi">Delhi</option>
-                    <option value="karnataka">Karnataka</option>
-                    <option value="maharashtra">Maharashtra</option>
-                    <option value="tamil-nadu">Tamil Nadu</option>
-                    <option value="telangana">Telangana</option>
-                    <option value="uttar-pradesh">Uttar Pradesh</option>
-                    <option value="west-bengal">West Bengal</option>
-                  </select>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', localFilters.workshopType === 'Scilab' ? '' : 'Scilab')}>
+                  <div className={`filter-checkbox ${localFilters.workshopType === 'Scilab' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Scilab</span>
+                  <span className="filter-count">38</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', localFilters.workshopType === 'OpenFOAM' ? '' : 'OpenFOAM')}>
+                  <div className={`filter-checkbox ${localFilters.workshopType === 'OpenFOAM' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">OpenFOAM</span>
+                  <span className="filter-count">28</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', localFilters.workshopType === 'DWSIM' ? '' : 'DWSIM')}>
+                  <div className={`filter-checkbox ${localFilters.workshopType === 'DWSIM' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">DWSIM</span>
+                  <span className="filter-count">15</span>
                 </div>
               </div>
 
@@ -142,25 +111,56 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
                   <input
                     type="date"
                     className="form-control"
-                    value={localFilters.fromDate}
-                    onChange={(e) => handleChange('fromDate', e.target.value)}
+                    value={localFilters.fromDate || ''}
+                    onChange={(e) => handleFilterChange('fromDate', e.target.value)}
                   />
                 </div>
-
                 <div className="form-group">
                   <label className="form-label">To</label>
                   <input
                     type="date"
                     className="form-control"
-                    value={localFilters.toDate}
-                    onChange={(e) => handleChange('toDate', e.target.value)}
+                    value={localFilters.toDate || ''}
+                    onChange={(e) => handleFilterChange('toDate', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <h4>State</h4>
+                <div className="filter-item" onClick={() => handleFilterChange('state', localFilters.state === 'Maharashtra' ? '' : 'Maharashtra')}>
+                  <div className={`filter-checkbox ${localFilters.state === 'Maharashtra' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Maharashtra</span>
+                  <span className="filter-count">52</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('state', localFilters.state === 'Delhi' ? '' : 'Delhi')}>
+                  <div className={`filter-checkbox ${localFilters.state === 'Delhi' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Delhi</span>
+                  <span className="filter-count">38</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('state', localFilters.state === 'Tamil Nadu' ? '' : 'Tamil Nadu')}>
+                  <div className={`filter-checkbox ${localFilters.state === 'Tamil Nadu' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Tamil Nadu</span>
+                  <span className="filter-count">31</span>
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <h4>Institute</h4>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search institute..."
+                    value={localFilters.institute || ''}
+                    onChange={(e) => handleFilterChange('institute', e.target.value)}
                   />
                 </div>
               </div>
             </div>
 
             <div className="filter-footer">
-              <button className="btn btn-outline" onClick={handleClear}>
+              <button className="btn btn-secondary" onClick={handleClear}>
                 Clear All
               </button>
               <button className="btn btn-primary" onClick={handleApply}>

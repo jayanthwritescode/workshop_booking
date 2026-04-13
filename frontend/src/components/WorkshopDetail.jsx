@@ -35,26 +35,26 @@ const WorkshopDetail = () => {
   const getBadgeClass = (status) => {
     switch (status.toLowerCase()) {
       case 'accepted':
-        return 'badge-success';
+        return 'badge-accepted';
       case 'proposed':
-        return 'badge-warning';
+        return 'badge-proposed';
       case 'completed':
-        return 'badge-info';
+        return 'badge-completed';
       default:
-        return 'badge-secondary';
+        return 'badge-accepted';
     }
   };
 
   const getAccentColor = (status) => {
     switch (status.toLowerCase()) {
       case 'accepted':
-        return 'var(--color-success)';
+        return 'var(--color-accepted)';
       case 'proposed':
-        return 'var(--color-warning)';
+        return 'var(--color-proposed)';
       case 'completed':
-        return 'var(--color-info)';
+        return 'var(--color-completed)';
       default:
-        return 'var(--color-secondary)';
+        return 'var(--color-accepted)';
     }
   };
 

@@ -55,6 +55,11 @@ const Navbar = () => {
                 Types
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/dashboard" className={`nav-link nav-link-dashboard ${isActive('/dashboard') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>
+                My Dashboard
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

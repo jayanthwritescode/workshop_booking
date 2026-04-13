@@ -57,26 +57,26 @@ const Dashboard = () => {
   const getBadgeClass = (status) => {
     switch (status.toLowerCase()) {
       case 'accepted':
-        return 'badge-success';
+        return 'badge-accepted';
       case 'proposed':
-        return 'badge-warning';
+        return 'badge-proposed';
       case 'completed':
-        return 'badge-info';
+        return 'badge-completed';
       default:
-        return 'badge-secondary';
+        return 'badge-accepted';
     }
   };
 
   const getAccentColor = (status) => {
     switch (status.toLowerCase()) {
       case 'accepted':
-        return 'var(--color-success)';
+        return 'var(--color-accepted)';
       case 'proposed':
-        return 'var(--color-warning)';
+        return 'var(--color-proposed)';
       case 'completed':
-        return 'var(--color-info)';
+        return 'var(--color-completed)';
       default:
-        return 'var(--color-secondary)';
+        return 'var(--color-accepted)';
     }
   };
 
@@ -128,7 +128,7 @@ const Dashboard = () => {
         <div className="card">
           <div className="card-body">
             <div className="detail-label">Registered</div>
-            <div className="detail-value" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-success)' }}>
+            <div className="detail-value" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-accepted)' }}>
               {userWorkshops.registered.length}
             </div>
           </div>
@@ -136,7 +136,7 @@ const Dashboard = () => {
         <div className="card">
           <div className="card-body">
             <div className="detail-label">Waitlisted</div>
-            <div className="detail-value" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-warning)' }}>
+            <div className="detail-value" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-proposed)' }}>
               {userWorkshops.waitlisted.length}
             </div>
           </div>
@@ -144,7 +144,7 @@ const Dashboard = () => {
         <div className="card">
           <div className="card-body">
             <div className="detail-label">Past Workshops</div>
-            <div className="detail-value" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-info)' }}>
+            <div className="detail-value" style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-completed)' }}>
               {userWorkshops.past.length}
             </div>
           </div>

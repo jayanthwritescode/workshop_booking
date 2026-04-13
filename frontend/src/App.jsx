@@ -25,7 +25,9 @@ const Home = () => {
       institute: 'IIT Bombay',
       instructor: 'Jane Smith',
       status: 'Accepted',
-      skillLevel: 'Intermediate'
+      skillLevel: 'Intermediate',
+      seatsAvailable: 23,
+      seatsTotal: 50
     },
     {
       id: 2,
@@ -35,7 +37,9 @@ const Home = () => {
       institute: 'IIT Delhi',
       instructor: 'Bob Wilson',
       status: 'Proposed',
-      skillLevel: 'Beginner'
+      skillLevel: 'Beginner',
+      seatsAvailable: 0,
+      seatsTotal: 40
     },
     {
       id: 3,
@@ -45,7 +49,9 @@ const Home = () => {
       institute: 'IIT Madras',
       instructor: 'Diana Prince',
       status: 'Completed',
-      skillLevel: 'Advanced'
+      skillLevel: 'Advanced',
+      seatsAvailable: 0,
+      seatsTotal: 30
     }
   ];
 
@@ -64,6 +70,10 @@ const Home = () => {
     navigate(`/workshops/${workshop.id}`);
   };
 
+  const handleRegister = (workshop) => {
+    alert(`Registration for ${workshop.workshopType} would be handled here`);
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -73,6 +83,21 @@ const Home = () => {
           <p className="hero-subtitle">
             Free/Libre and Open Source Software for Education. Browse and register for workshops on Python, Scilab, OpenFOAM, and more.
           </p>
+
+          <div className="hero-quick-stats">
+            <div className="hero-quick-stat">
+              <div className="hero-quick-stat-value">156</div>
+              <div className="hero-quick-stat-label">Total Workshops</div>
+            </div>
+            <div className="hero-quick-stat">
+              <div className="hero-quick-stat-value">89</div>
+              <div className="hero-quick-stat-label">Accepting Now</div>
+            </div>
+            <div className="hero-quick-stat">
+              <div className="hero-quick-stat-value">45</div>
+              <div className="hero-quick-stat-label">Institutions</div>
+            </div>
+          </div>
 
           <div className="hero-search">
             <input
@@ -112,6 +137,7 @@ const Home = () => {
                 key={workshop.id}
                 workshop={workshop}
                 onViewDetails={handleViewDetails}
+                onRegister={handleRegister}
               />
             ))}
           </div>
@@ -170,12 +196,12 @@ const Statistics = () => {
     switch (color) {
       case 'primary':
         return 'var(--color-primary)';
-      case 'success':
-        return 'var(--color-success)';
-      case 'warning':
-        return 'var(--color-warning)';
-      case 'info':
-        return 'var(--color-info)';
+      case 'accepted':
+        return 'var(--color-accepted)';
+      case 'proposed':
+        return 'var(--color-proposed)';
+      case 'completed':
+        return 'var(--color-completed)';
       default:
         return 'var(--color-primary)';
     }
@@ -338,7 +364,9 @@ const Workshops = () => {
       institute: 'IIT Bombay',
       instructor: 'Jane Smith',
       status: 'Accepted',
-      skillLevel: 'Intermediate'
+      skillLevel: 'Intermediate',
+      seatsAvailable: 23,
+      seatsTotal: 50
     },
     {
       id: 2,
@@ -348,7 +376,9 @@ const Workshops = () => {
       institute: 'IIT Delhi',
       instructor: 'Bob Wilson',
       status: 'Proposed',
-      skillLevel: 'Beginner'
+      skillLevel: 'Beginner',
+      seatsAvailable: 0,
+      seatsTotal: 40
     },
     {
       id: 3,
@@ -358,7 +388,9 @@ const Workshops = () => {
       institute: 'IIT Madras',
       instructor: 'Diana Prince',
       status: 'Completed',
-      skillLevel: 'Advanced'
+      skillLevel: 'Advanced',
+      seatsAvailable: 0,
+      seatsTotal: 30
     },
     {
       id: 4,
@@ -368,7 +400,9 @@ const Workshops = () => {
       institute: 'IIT Kharagpur',
       instructor: 'Frank Miller',
       status: 'Accepted',
-      skillLevel: 'Intermediate'
+      skillLevel: 'Intermediate',
+      seatsAvailable: 5,
+      seatsTotal: 35
     },
     {
       id: 5,
@@ -378,7 +412,9 @@ const Workshops = () => {
       institute: 'IIT Kanpur',
       instructor: 'Henry Ford',
       status: 'Proposed',
-      skillLevel: 'Advanced'
+      skillLevel: 'Advanced',
+      seatsAvailable: 0,
+      seatsTotal: 25
     },
     {
       id: 6,
@@ -388,7 +424,9 @@ const Workshops = () => {
       institute: 'IIT Roorkee',
       instructor: 'Jack White',
       status: 'Accepted',
-      skillLevel: 'Intermediate'
+      skillLevel: 'Intermediate',
+      seatsAvailable: 18,
+      seatsTotal: 45
     }
   ];
 
@@ -415,6 +453,10 @@ const Workshops = () => {
     navigate(`/workshops/${workshop.id}`);
   };
 
+  const handleRegister = (workshop) => {
+    alert(`Registration for ${workshop.workshopType} would be handled here`);
+  };
+
   // Filter workshops based on search and filters
   const filteredWorkshops = mockWorkshops.filter(workshop => {
     const matchesSearch = !searchQuery || 
@@ -432,11 +474,34 @@ const Workshops = () => {
 
   return (
     <div className="container">
-      <div className="search-section">
+      <div className="search-section mb-4">
         <div>
           <SearchBar onSearch={handleSearch} placeholder="Search workshops..." />
         </div>
         <FilterPanel onFilterChange={handleFilterChange} filters={filters} />
+      </div>
+
+      <div className="statistics-summary">
+        <div className="statistic-card">
+          <div className="statistic-label">Accepting Now</div>
+          <div className="statistic-value accepted">89</div>
+        </div>
+        <div className="statistic-card">
+          <div className="statistic-label">Proposed</div>
+          <div className="statistic-value proposed">34</div>
+        </div>
+        <div className="statistic-card">
+          <div className="statistic-label">Completed</div>
+          <div className="statistic-value completed">33</div>
+        </div>
+        <div className="statistic-card">
+          <div className="statistic-label">Total Seats</div>
+          <div className="statistic-value seats">2,340</div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h2>All Workshops</h2>
       </div>
 
       <FilterChips
@@ -471,6 +536,7 @@ const Workshops = () => {
               key={workshop.id}
               workshop={workshop}
               onViewDetails={handleViewDetails}
+              onRegister={handleRegister}
             />
           ))}
         </div>
@@ -589,12 +655,12 @@ const WorkshopTypes = () => {
     switch (color) {
       case 'primary':
         return 'var(--color-primary)';
-      case 'success':
-        return 'var(--color-success)';
-      case 'warning':
-        return 'var(--color-warning)';
-      case 'info':
-        return 'var(--color-info)';
+      case 'accepted':
+        return 'var(--color-accepted)';
+      case 'proposed':
+        return 'var(--color-proposed)';
+      case 'completed':
+        return 'var(--color-completed)';
       case 'secondary':
         return 'var(--color-secondary)';
       default:
