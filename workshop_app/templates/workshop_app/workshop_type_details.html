@@ -6,27 +6,42 @@
 
 {% block content %}
     <div class="container">
-        <h2 class="text-center m-3">Workshop Details</h2>
-        <table class="table table-hover">
-            <tr class="d-flex">
-                <th class="col-3">Workshop Name :</th>
-                <td class="col">{{ workshop_type.name }}</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Duration :</th>
-                <td class="col">{{ workshop_type.duration }} day(s)</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Description :</th>
-                <td class="col">{{ workshop_type.description }}</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Terms and Conditions :</th>
-                <td class="col">{{ workshop_type.terms_and_conditions }}</td>
-            </tr>
-        </table>
-    </div>
+        <div class="section">
+            <div class="section-header">
+                <h1 class="section-title">Workshop Type Details</h1>
+            </div>
+        </div>
 
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">{{ workshop_type.name }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive-wrapper table-mobile-cards">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th data-label="Workshop Name">Workshop Name</th>
+                            <td data-label="Workshop Name">{{ workshop_type.name }}</td>
+                        </tr>
+                        <tr>
+                            <th data-label="Duration">Duration</th>
+                            <td data-label="Duration">{{ workshop_type.duration }} day(s)</td>
+                        </tr>
+                        <tr>
+                            <th data-label="Description">Description</th>
+                            <td data-label="Description">{{ workshop_type.description }}</td>
+                        </tr>
+                        <tr>
+                            <th data-label="Terms and Conditions">Terms and Conditions</th>
+                            <td data-label="Terms and Conditions">{{ workshop_type.terms_and_conditions }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 

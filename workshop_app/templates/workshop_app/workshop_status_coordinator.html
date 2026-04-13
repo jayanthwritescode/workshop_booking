@@ -4,85 +4,112 @@
     My Workshops
 {% endblock %}
 
-{% block extra-custom-scripts %}
-<style >
-    .table-heading{
-        color: #04a9cf;
-    }
-    </style>
-{% endblock %}
-
 {% block content %}
-    {% if not workshops %}
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Welcome {{ user.first_name }}</h1>
-                <p>Information Related to your workshops will be shown here, you can also
-                    propose a Workshop as per your available date in <strong>Propose Workshop tab</strong> .</p>
+    <div class="container">
+        {% if not workshops %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <div class="empty-state-icon">
+                        <i class="material-icons" style="font-size: 4rem;">work</i>
+                    </div>
+                    <h2 class="mb-4">Welcome, {{ user.first_name }}!</h2>
+                    <p class="text-section mb-4">
+                        Information related to your workshops will be shown here.
+                        You can propose a workshop as per your available date in the
+                        <strong>Propose Workshop</strong> tab.
+                    </p>
+                    <a href="{% url 'workshop_app:propose_workshop' %}" class="btn btn-primary btn-lg">
+                        <i class="material-icons align-middle mr-2">add</i>
+                        Propose a Workshop
+                    </a>
+                </div>
             </div>
-        </div>
-    {% else %}
-        <h3 class="text-center">The status of your workshops </h3>
-        <br>
+        {% else %}
+            <div class="section">
+                <div class="section-header">
+                    <h1 class="section-title">My Workshops</h1>
+                </div>
+            </div>
 
-        <!-- Accepted View -->
+            <!-- Accepted Workshops Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Workshops Accepted</h2>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive-wrapper table-mobile-cards">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th data-label="Workshop Name">Workshop Name</th>
+                                    <th data-label="Instructor Name">Instructor Name</th>
+                                    <th data-label="Workshop Day">Workshop Day</th>
+                                    <th data-label="Status">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for workshop in workshops %}
+                                    {% if workshop.status %}
+                                    <tr>
+                                        <td data-label="Workshop Name">
+                                            <a href="{% url 'workshop_app:workshop_details' workshop.id %}" class="font-weight-bold">
+                                                {{ workshop.workshop_type |capfirst }}
+                                            </a>
+                                        </td>
+                                        <td data-label="Instructor Name">{{ workshop.instructor.get_full_name }}</td>
+                                        <td data-label="Workshop Day">{{ workshop.date | date }}</td>
+                                        <td data-label="Status">
+                                            <span class="badge badge-success">{{ workshop.get_status }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <br>
-        <div class="container">
-            <h3 class="text-center table-heading"><strong>Workshops Accepted</strong></h3>
-            <table class="table table-striped table-responsive-sm">
-                <thead>
-                <tr>
-                    <th>Workshop Name</th>
-                    <th>Instructor Name</th>
-                    <th>Workshop Day</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-
-                {% for workshop in workshops %}
-                    <tbody>
-                    <tr>
-                        {% if workshop.status %}
-                            <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
-                            <td>{{ workshop.instructor.get_full_name }}</td>
-                            <td>{{ workshop.date | date }}</td>
-                            <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
-                        {% endif %}
-                    </tr>
-                    </tbody>
-                {% endfor %}
-
-            </table>
-        </div>
-
-        <!-- Proposed View -->
-
-        <br>
-        <div class="container">
-            <h3 class="text-center table-heading"><strong>Workshops Proposed By Me</strong></h3>
-            <table class="table table-striped table-responsive-sm">
-                <thead>
-                <tr>
-                    <th>Workshop Name</th>
-                    <th>Workshop Day</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                {% for workshop in workshops %}
-                    <tbody>
-                    <tr>
-                        {% if not workshop.status and workshop.tnc_accepted %}
-                            <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
-                            <td>{{ workshop.date | date }}</td>
-                            <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
-                        {% endif %}
-                    </tr>
-                    </tbody>
-
-                {% endfor %}
-            </table>
-        </div>
-    {% endif %}
-
+            <!-- Proposed Workshops Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Workshops Proposed By Me</h2>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive-wrapper table-mobile-cards">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th data-label="Workshop Name">Workshop Name</th>
+                                    <th data-label="Workshop Day">Workshop Day</th>
+                                    <th data-label="Status">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for workshop in workshops %}
+                                    {% if not workshop.status and workshop.tnc_accepted %}
+                                    <tr>
+                                        <td data-label="Workshop Name">
+                                            <a href="{% url 'workshop_app:workshop_details' workshop.id %}" class="font-weight-bold">
+                                                {{ workshop.workshop_type |capfirst }}
+                                            </a>
+                                        </td>
+                                        <td data-label="Workshop Day">{{ workshop.date | date }}</td>
+                                        <td data-label="Status">
+                                            <span class="badge badge-warning">{{ workshop.get_status }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
