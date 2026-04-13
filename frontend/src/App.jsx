@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import SearchBar from './components/SearchBar';
+import FilterPanel from './components/FilterPanel';
 
 // Placeholder pages - will implement in next steps
 const Home = () => (
@@ -29,18 +31,48 @@ const Statistics = () => (
   </div>
 );
 
-const Workshops = () => (
-  <div className="container">
-    <div className="card">
-      <div className="card-header">
-        <h2>Workshop Status</h2>
+const Workshops = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({});
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
+
+  return (
+    <div className="container">
+      <div className="d-flex gap-3 mb-4">
+        <div className="flex-fill">
+          <SearchBar onSearch={handleSearch} placeholder="Search workshops..." />
+        </div>
+        <FilterPanel onFilterChange={handleFilterChange} filters={filters} />
       </div>
-      <div className="card-body">
-        <p>Workshop status page - coming soon</p>
+
+      <div className="card">
+        <div className="card-header">
+          <h2>Workshop Status</h2>
+        </div>
+        <div className="card-body">
+          {searchQuery && (
+            <p className="text-muted mb-3">
+              Search results for: <strong>{searchQuery}</strong>
+            </p>
+          )}
+          {Object.values(filters).some(value => value) && (
+            <p className="text-muted mb-3">
+              Active filters applied
+            </p>
+          )}
+          <p>Workshop cards will be displayed here - coming soon</p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const WorkshopTypes = () => (
   <div className="container">
