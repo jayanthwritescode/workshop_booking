@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import SearchBar from './components/SearchBar';
 import FilterPanel from './components/FilterPanel';
+import FilterChips from './components/FilterChips';
 import WorkshopCard from './components/WorkshopCard';
 
 // Placeholder pages - will implement in next steps
@@ -102,6 +103,17 @@ const Workshops = () => {
     setFilters(newFilters);
   };
 
+  const handleRemoveFilter = (filterKey) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterKey]: ''
+    }));
+  };
+
+  const handleClearAllFilters = () => {
+    setFilters({});
+  };
+
   const handleViewDetails = (workshop) => {
     console.log('View details for:', workshop);
     // Will implement navigation to details page
@@ -131,16 +143,17 @@ const Workshops = () => {
         <FilterPanel onFilterChange={handleFilterChange} filters={filters} />
       </div>
 
+      <FilterChips
+        filters={filters}
+        onRemoveFilter={handleRemoveFilter}
+        onClearAll={handleClearAllFilters}
+      />
+
       {(searchQuery || Object.values(filters).some(value => value)) && (
         <div className="mb-3">
           {searchQuery && (
             <span className="text-muted">
               Search: <strong>{searchQuery}</strong>
-            </span>
-          )}
-          {Object.values(filters).some(value => value) && (
-            <span className="text-muted ml-2">
-              Filters applied
             </span>
           )}
           <span className="text-muted ml-2">
