@@ -62,57 +62,71 @@ const Home = () => {
   };
 
   return (
-    <div className="container">
+    <>
       {/* Hero Section */}
-      <div className="hero-section">
+      <section className="hero">
         <div className="hero-content">
           <h1>FOSSEE Workshops</h1>
           <p className="hero-subtitle">
             Free/Libre and Open Source Software for Education. Browse and register for workshops on Python, Scilab, OpenFOAM, and more.
           </p>
-          
-          <div className="hero-search">
-            <SearchBar onSearch={handleSearch} placeholder="Search workshops by name, instructor, or institute..." />
-          </div>
 
-          <div className="hero-stats">
-            {heroStats.map((stat, index) => (
-              <div key={index} className="hero-stat">
-                <div className="hero-stat-value">{stat.value}</div>
-                <div className="hero-stat-label">{stat.label}</div>
-              </div>
-            ))}
+          <div className="hero-search">
+            <input
+              type="text"
+              className="hero-search-input"
+              placeholder="Search workshops by name, instructor, or institute..."
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+            <button className="hero-search-button btn btn-primary" onClick={() => handleSearch(searchQuery)}>
+              Search
+            </button>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Featured Workshops */}
-      <div className="mb-4">
-        <h2>Featured Workshops</h2>
-      </div>
-
-      <div className="workshop-cards-grid">
-        {featuredWorkshops.map(workshop => (
-          <WorkshopCard
-            key={workshop.id}
-            workshop={workshop}
-            onViewDetails={handleViewDetails}
-          />
+      {/* Stats Layer */}
+      <div className="stats-layer">
+        {heroStats.map((stat, index) => (
+          <div key={index} className="stat-card">
+            <h2>{stat.value}</h2>
+            <p>{stat.label}</p>
+          </div>
         ))}
       </div>
 
-      <div className="card mt-4">
-        <div className="card-body text-center">
-          <h3>Explore More Workshops</h3>
-          <p className="text-muted mb-3">
-            View all workshops, filter by type or status, and find the perfect workshop for you.
-          </p>
-          <button className="btn btn-primary" onClick={() => navigate('/workshops')}>
-            View All Workshops
-          </button>
+      {/* Page Content */}
+      <section className="page-content">
+        <div className="container">
+          <div className="mb-4">
+            <h2>Featured Workshops</h2>
+          </div>
+
+          <div className="workshop-cards-grid">
+            {featuredWorkshops.map(workshop => (
+              <WorkshopCard
+                key={workshop.id}
+                workshop={workshop}
+                onViewDetails={handleViewDetails}
+              />
+            ))}
+          </div>
+
+          <div className="card mt-4">
+            <div className="card-body text-center">
+              <h3>Explore More Workshops</h3>
+              <p className="text-muted mb-3">
+                View all workshops, filter by type or status, and find the perfect workshop for you.
+              </p>
+              <button className="btn btn-primary" onClick={() => navigate('/workshops')}>
+                View All Workshops
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
