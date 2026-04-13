@@ -1,4 +1,5 @@
 {% extends "workshop_app/base.html" %}
+{% load custom_filters %}
 
 {% block title %}
 	Edit Profile
@@ -6,17 +7,26 @@
 
 {% block content %}
   <div class="container">
-    <form action="{{URL_ROOT}}/edit_profile/" method="post" >
-    {% csrf_token %}
-      <center>
-        <div class="table-responsive-wrapper">
-            <table class="table table-bordered">
-              {{ form.as_table }}
-            </table>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Edit Profile</h3>
+                    <form action="{{URL_ROOT}}/edit_profile/" method="post">
+                    {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group mb-3">
+                                <label for="{{ field.id_for_label }}" class="font-weight-bold">{{ field.label }}</label>
+                                {{ field|add_class:"form-control" }}
+                            </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-end mt-4">
+                            <button class="btn btn-primary" type="submit">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </center>
-      <br>
-        <button class="btn btn-primary pull-right" type="submit">Save Profile</button>
-    </form>
+    </div>
   </div>
 {% endblock %}

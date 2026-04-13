@@ -39,6 +39,11 @@ html, body {
         font-size: 0.95rem;
         padding: 0.5rem 1rem;
     }
+
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.1rem; }
 }
 
 /* Responsive table wrapper */
@@ -51,6 +56,17 @@ html, body {
     .table-responsive-wrapper {
         margin: 0 -15px;
         padding: 0 15px;
+    }
+}
+
+/* Form spacing improvements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 1.25rem;
     }
 }
 
