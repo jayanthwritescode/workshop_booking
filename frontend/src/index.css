@@ -170,6 +170,7 @@ body {
 
 .btn-primary:hover {
   background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -495,6 +496,26 @@ h6 { font-size: 0.875rem; }
 
   .navbar-toggle {
     display: block;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .form-control,
+  .hero-search-input {
+    width: 100%;
+  }
+
+  .hero-search {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .hero-search-button {
+    width: 100%;
   }
 
   .navbar-collapse {
@@ -523,6 +544,7 @@ h6 { font-size: 0.875rem; }
 
   .nav-link-dashboard {
     text-align: center;
+    margin-top: var(--space-2);
   }
 
   .navbar-nav {
@@ -831,91 +853,6 @@ h6 { font-size: 0.875rem; }
   }
 }
 
-/* Workshop Card styles */
-.workshop-card {
-  transition: box-shadow 0.15s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.workshop-card:hover {
-  box-shadow: var(--box-shadow-lg);
-}
-
-.workshop-accent-strip {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-}
-
-.workshop-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.workshop-title {
-  margin: 0;
-  font-size: 1.0625rem;
-  font-weight: 600;
-  color: var(--color-dark);
-  flex: 1;
-  padding-right: var(--space-2);
-  line-height: 1.4;
-}
-
-.badge {
-  display: inline-block;
-  padding: var(--space-1) var(--space-2);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  border-radius: var(--border-radius);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
-  line-height: 1.2;
-}
-
-.workshop-details {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.workshop-detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.detail-label {
-  font-weight: 500;
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.detail-value {
-  font-weight: 400;
-  color: var(--color-text);
-  font-size: 0.875rem;
-  line-height: 1.4;
-}
-
-.workshop-card-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: var(--space-2);
-  border-top: 1px solid var(--color-border);
-}
-
 /* Hero Section - New Structure */
 .hero {
   background-color: var(--color-background-alt);
@@ -944,7 +881,7 @@ h6 { font-size: 0.875rem; }
 .hero-subtitle {
   color: var(--color-text-muted);
   font-size: 1.125rem;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -955,7 +892,7 @@ h6 { font-size: 0.875rem; }
   display: flex;
   justify-content: center;
   gap: var(--space-6);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
 }
 
 .hero-quick-stat {
@@ -1064,13 +1001,13 @@ h6 { font-size: 0.875rem; }
     font-size: 1.75rem;
   }
 
-  .hero-subtitle {
-    font-size: 1rem;
+  .hero-quick-stats {
+    flex-direction: column;
+    gap: var(--space-4);
   }
 
-  .hero-quick-stats {
-    flex-wrap: wrap;
-    gap: var(--space-4);
+  .hero-subtitle {
+    font-size: 1rem;
   }
 
   .stats-layer {
@@ -1097,6 +1034,16 @@ h6 { font-size: 0.875rem; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--spacing-card-gap);
+}
+
+@media (max-width: 768px) {
+  .workshop-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workshop-card {
+    margin: 0 calc(-1 * var(--space-3));
+  }
 }
 
 .workshop-card {
@@ -1218,6 +1165,7 @@ h6 { font-size: 0.875rem; }
 .btn-ghost:hover {
   background: var(--color-background-alt);
   border-color: var(--color-text-muted);
+  transform: translateY(-1px);
 }
 
 /* Status-based top border for cards */
@@ -1240,6 +1188,81 @@ h6 { font-size: 0.875rem; }
 
 .seats-limited {
   color: var(--color-proposed);
+}
+
+/* Workshops Page Layout with Persistent Sidebar */
+.workshops-page-layout {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+}
+
+.workshops-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--color-background-alt);
+  border-radius: var(--border-radius);
+  padding: var(--space-4);
+  height: fit-content;
+  position: sticky;
+  top: calc(64px + var(--space-3));
+}
+
+.sidebar-header {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: var(--heading-font-size);
+  font-weight: var(--heading-font-weight);
+  color: var(--color-text);
+}
+
+.sidebar-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.workshops-main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-filter-button {
+  display: none;
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-lg);
+  z-index: 100;
+}
+
+@media (max-width: 1024px) {
+  .workshops-page-layout {
+    flex-direction: column;
+  }
+
+  .workshops-sidebar {
+    display: none;
+  }
+
+  .mobile-filter-button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
 }
 
 /* Statistics Summary Bar */
@@ -1291,6 +1314,8 @@ h6 { font-size: 0.875rem; }
 @media (max-width: 768px) {
   .statistics-summary {
     flex-wrap: wrap;
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
   }
 
   .statistic-card {
@@ -1365,17 +1390,6 @@ h6 { font-size: 0.875rem; }
 .remove-icon {
   font-size: 12px;
   line-height: 1;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-
-.btn-outline:hover {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
 }
 
 /* Skeleton Loader styles */
@@ -1511,17 +1525,17 @@ h6 { font-size: 0.875rem; }
 }
 
 .meta-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-text-muted);
+  font-size: var(--meta-label-font-size);
+  font-weight: var(--meta-label-font-weight);
+  text-transform: var(--meta-label-text-transform);
+  letter-spacing: var(--meta-label-letter-spacing);
+  color: var(--meta-label-color);
 }
 
 .meta-value {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text);
+  font-size: var(--meta-value-font-size);
+  font-weight: var(--meta-value-font-weight);
+  color: var(--meta-value-color);
 }
 
 .workshop-detail-body {
@@ -1872,11 +1886,6 @@ h6 { font-size: 0.875rem; }
 }
 
 /* Enhanced button transitions */
-.btn {
-  transition: all 0.15s ease;
-  position: relative;
-  overflow: hidden;
-}
 
 .btn::after {
   content: '';

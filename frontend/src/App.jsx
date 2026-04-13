@@ -55,13 +55,6 @@ const Home = () => {
     }
   ];
 
-  const heroStats = [
-    { label: 'Total Workshops', value: 156 },
-    { label: 'Active Registrations', value: 2340 },
-    { label: 'Institutions', value: 45 },
-    { label: 'Software Tools', value: 6 },
-  ];
-
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -114,18 +107,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Stats Layer */}
-      <div className="stats-layer">
-        {heroStats.map((stat, index) => (
-          <div key={index} className="stat-card">
-            <h2>{stat.value}</h2>
-            <p>{stat.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Page Content */}
-      <section className="page-content">
+      {/* Main Content */}
+      <div className="page-content">
         <div className="container">
           <div className="mb-4">
             <h2>Featured Workshops</h2>
@@ -154,7 +137,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </>
   );
 };
@@ -343,6 +326,7 @@ const Workshops = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const navigate = useNavigate();
 
   // Simulate API call loading
@@ -473,83 +457,232 @@ const Workshops = () => {
   });
 
   return (
-    <div className="container">
-      <div className="search-section mb-4">
-        <div>
-          <SearchBar onSearch={handleSearch} placeholder="Search workshops..." />
+    <div className="workshops-page-layout">
+      {/* Desktop Sidebar */}
+      <aside className="workshops-sidebar">
+        <div className="sidebar-header">
+          <h3>Filters</h3>
         </div>
-        <FilterPanel onFilterChange={handleFilterChange} filters={filters} />
-      </div>
+        <div className="sidebar-body">
+          <div className="filter-section">
+            <h4>Status</h4>
+            <div className="filter-item" onClick={() => handleFilterChange('status', filters.status === 'Accepted' ? '' : 'Accepted')}>
+              <div className={`filter-checkbox ${filters.status === 'Accepted' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">Accepted</span>
+              <span className="filter-count">89</span>
+            </div>
+            <div className="filter-item" onClick={() => handleFilterChange('status', filters.status === 'Proposed' ? '' : 'Proposed')}>
+              <div className={`filter-checkbox ${filters.status === 'Proposed' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">Proposed</span>
+              <span className="filter-count">34</span>
+            </div>
+            <div className="filter-item" onClick={() => handleFilterChange('status', filters.status === 'Completed' ? '' : 'Completed')}>
+              <div className={`filter-checkbox ${filters.status === 'Completed' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">Completed</span>
+              <span className="filter-count">33</span>
+            </div>
+          </div>
 
-      <div className="statistics-summary">
-        <div className="statistic-card">
-          <div className="statistic-label">Accepting Now</div>
-          <div className="statistic-value accepted">89</div>
-        </div>
-        <div className="statistic-card">
-          <div className="statistic-label">Proposed</div>
-          <div className="statistic-value proposed">34</div>
-        </div>
-        <div className="statistic-card">
-          <div className="statistic-label">Completed</div>
-          <div className="statistic-value completed">33</div>
-        </div>
-        <div className="statistic-card">
-          <div className="statistic-label">Total Seats</div>
-          <div className="statistic-value seats">2,340</div>
-        </div>
-      </div>
+          <div className="filter-section">
+            <h4>Workshop Type</h4>
+            <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'Python' ? '' : 'Python')}>
+              <div className={`filter-checkbox ${filters.workshopType === 'Python' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">Python</span>
+              <span className="filter-count">45</span>
+            </div>
+            <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'Scilab' ? '' : 'Scilab')}>
+              <div className={`filter-checkbox ${filters.workshopType === 'Scilab' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">Scilab</span>
+              <span className="filter-count">38</span>
+            </div>
+            <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'OpenFOAM' ? '' : 'OpenFOAM')}>
+              <div className={`filter-checkbox ${filters.workshopType === 'OpenFOAM' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">OpenFOAM</span>
+              <span className="filter-count">28</span>
+            </div>
+            <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'DWSIM' ? '' : 'DWSIM')}>
+              <div className={`filter-checkbox ${filters.workshopType === 'DWSIM' ? 'checked' : ''}`}></div>
+              <span className="filter-item-label">DWSIM</span>
+              <span className="filter-count">15</span>
+            </div>
+          </div>
 
-      <div className="mb-4">
-        <h2>All Workshops</h2>
-      </div>
+          <div className="filter-section">
+            <h4>Institute</h4>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search institute..."
+                value={filters.institute || ''}
+                onChange={(e) => handleFilterChange('institute', e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+      </aside>
 
-      <FilterChips
-        filters={filters}
-        onRemoveFilter={handleRemoveFilter}
-        onClearAll={handleClearAllFilters}
-      />
+      {/* Main Content */}
+      <div className="workshops-main-content">
+        <div className="container">
+          <div className="search-section mb-4">
+            <SearchBar onSearch={handleSearch} placeholder="Search workshops..." />
+          </div>
 
-      {(searchQuery || Object.values(filters).some(value => value)) && (
-        <div className="mb-3">
-          {searchQuery && (
-            <span className="text-muted">
-              Search: <strong>{searchQuery}</strong>
-            </span>
+          <div className="statistics-summary">
+            <div className="statistic-card">
+              <div className="statistic-label">Accepting Now</div>
+              <div className="statistic-value accepted">89</div>
+            </div>
+            <div className="statistic-card">
+              <div className="statistic-label">Proposed</div>
+              <div className="statistic-value proposed">34</div>
+            </div>
+            <div className="statistic-card">
+              <div className="statistic-label">Completed</div>
+              <div className="statistic-value completed">33</div>
+            </div>
+            <div className="statistic-card">
+              <div className="statistic-label">Total Seats</div>
+              <div className="statistic-value seats">2,340</div>
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <h2>All Workshops</h2>
+          </div>
+
+          <FilterChips
+            filters={filters}
+            onRemoveFilter={handleRemoveFilter}
+            onClearAll={handleClearAllFilters}
+          />
+
+          {(searchQuery || Object.values(filters).some(value => value)) && (
+            <div className="mb-3">
+              {searchQuery && (
+                <span className="text-muted">
+                  Search results for "{searchQuery}"
+                </span>
+              )}
+            </div>
           )}
-          <span className="text-muted ml-2">
-            ({filteredWorkshops.length} results)
-          </span>
-        </div>
-      )}
 
-      {isLoading ? (
-        <div className="workshop-cards-grid">
-          {[1, 2, 3, 4, 5, 6].map(i => (
-            <WorkshopCardSkeleton key={i} />
-          ))}
+          {isLoading ? (
+            <div className="workshop-cards-grid">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <WorkshopCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : filteredWorkshops.length > 0 ? (
+            <div className="workshop-cards-grid">
+              {filteredWorkshops.map(workshop => (
+                <WorkshopCard
+                  key={workshop.id}
+                  workshop={workshop}
+                  onViewDetails={handleViewDetails}
+                  onRegister={handleRegister}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="card">
+              <div className="card-body">
+                <EmptyState
+                  title="No workshops found"
+                  message="Try adjusting your search or filters to find what you're looking for"
+                  actionText="Clear Filters"
+                  onAction={handleClearAllFilters}
+                  icon="search_off"
+                />
+              </div>
+            </div>
+          )}
         </div>
-      ) : filteredWorkshops.length > 0 ? (
-        <div className="workshop-cards-grid">
-          {filteredWorkshops.map(workshop => (
-            <WorkshopCard
-              key={workshop.id}
-              workshop={workshop}
-              onViewDetails={handleViewDetails}
-              onRegister={handleRegister}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="card">
-          <div className="card-body">
-            <EmptyState
-              title="No workshops found"
-              message="Try adjusting your search or filters to find what you're looking for"
-              actionText="Clear Filters"
-              onAction={handleClearAllFilters}
-              icon="search_off"
-            />
+      </div>
+
+      {/* Mobile Filter Button */}
+      <button className="mobile-filter-button" onClick={() => setShowMobileFilters(true)}>
+        <span>Filters</span>
+      </button>
+
+      {/* Mobile Filter Panel */}
+      {showMobileFilters && (
+        <div className="filter-overlay" onClick={() => setShowMobileFilters(false)}>
+          <div className="filter-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="filter-header">
+              <h3>Filters</h3>
+              <button className="filter-close" onClick={() => setShowMobileFilters(false)} aria-label="Close Filters">
+                <span className="close-icon">close</span>
+              </button>
+            </div>
+
+            <div className="filter-body">
+              <div className="filter-section">
+                <h4>Status</h4>
+                <div className="filter-item" onClick={() => handleFilterChange('status', filters.status === 'Accepted' ? '' : 'Accepted')}>
+                  <div className={`filter-checkbox ${filters.status === 'Accepted' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Accepted</span>
+                  <span className="filter-count">89</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('status', filters.status === 'Proposed' ? '' : 'Proposed')}>
+                  <div className={`filter-checkbox ${filters.status === 'Proposed' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Proposed</span>
+                  <span className="filter-count">34</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('status', filters.status === 'Completed' ? '' : 'Completed')}>
+                  <div className={`filter-checkbox ${filters.status === 'Completed' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Completed</span>
+                  <span className="filter-count">33</span>
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <h4>Workshop Type</h4>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'Python' ? '' : 'Python')}>
+                  <div className={`filter-checkbox ${filters.workshopType === 'Python' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Python</span>
+                  <span className="filter-count">45</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'Scilab' ? '' : 'Scilab')}>
+                  <div className={`filter-checkbox ${filters.workshopType === 'Scilab' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">Scilab</span>
+                  <span className="filter-count">38</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'OpenFOAM' ? '' : 'OpenFOAM')}>
+                  <div className={`filter-checkbox ${filters.workshopType === 'OpenFOAM' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">OpenFOAM</span>
+                  <span className="filter-count">28</span>
+                </div>
+                <div className="filter-item" onClick={() => handleFilterChange('workshopType', filters.workshopType === 'DWSIM' ? '' : 'DWSIM')}>
+                  <div className={`filter-checkbox ${filters.workshopType === 'DWSIM' ? 'checked' : ''}`}></div>
+                  <span className="filter-item-label">DWSIM</span>
+                  <span className="filter-count">15</span>
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <h4>Institute</h4>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search institute..."
+                    value={filters.institute || ''}
+                    onChange={(e) => handleFilterChange('institute', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="filter-footer">
+              <button className="btn btn-secondary" onClick={handleClearAllFilters}>
+                Clear All
+              </button>
+              <button className="btn btn-primary" onClick={() => setShowMobileFilters(false)}>
+                Apply
+              </button>
+            </div>
           </div>
         </div>
       )}
