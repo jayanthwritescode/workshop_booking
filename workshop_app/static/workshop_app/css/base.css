@@ -26,6 +26,32 @@ html, body {
         padding-top: 4em;
         padding-bottom: 1.5em;
     }
+
+    body {
+        font-size: 14px;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .nav-link {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Responsive table wrapper */
+.table-responsive-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .table-responsive-wrapper {
+        margin: 0 -15px;
+        padding: 0 15px;
+    }
 }
 
 /* Button improvements */

@@ -30,30 +30,32 @@
         <br>
         <div class="container">
             <h3 class="text-center table-heading"><strong>Workshops Accepted</strong></h3>
-            <table class="table table-striped table-responsive-sm">
-                <thead>
-                <tr>
-                    <th>Workshop Name</th>
-                    <th>Instructor Name</th>
-                    <th>Workshop Day</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-
-                {% for workshop in workshops %}
-                    <tbody>
+            <div class="table-responsive-wrapper">
+                <table class="table table-striped table-responsive-sm">
+                    <thead>
                     <tr>
-                        {% if workshop.status %}
-                            <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
-                            <td>{{ workshop.instructor.get_full_name }}</td>
-                            <td>{{ workshop.date | date }}</td>
-                            <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
-                        {% endif %}
+                        <th>Workshop Name</th>
+                        <th>Instructor Name</th>
+                        <th>Workshop Day</th>
+                        <th>Status</th>
                     </tr>
-                    </tbody>
-                {% endfor %}
+                    </thead>
 
-            </table>
+                    {% for workshop in workshops %}
+                        <tbody>
+                        <tr>
+                            {% if workshop.status %}
+                                <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
+                                <td>{{ workshop.instructor.get_full_name }}</td>
+                                <td>{{ workshop.date | date }}</td>
+                                <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
+                            {% endif %}
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+
+                </table>
+            </div>
         </div>
 
         <!-- Proposed View -->
@@ -61,27 +63,29 @@
         <br>
         <div class="container">
             <h3 class="text-center table-heading"><strong>Workshops Proposed By Me</strong></h3>
-            <table class="table table-striped table-responsive-sm">
-                <thead>
-                <tr>
-                    <th>Workshop Name</th>
-                    <th>Workshop Day</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                {% for workshop in workshops %}
-                    <tbody>
+            <div class="table-responsive-wrapper">
+                <table class="table table-striped table-responsive-sm">
+                    <thead>
                     <tr>
-                        {% if not workshop.status and workshop.tnc_accepted %}
-                            <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
-                            <td>{{ workshop.date | date }}</td>
-                            <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
-                        {% endif %}
+                        <th>Workshop Name</th>
+                        <th>Workshop Day</th>
+                        <th>Status</th>
                     </tr>
-                    </tbody>
+                    </thead>
+                    {% for workshop in workshops %}
+                        <tbody>
+                        <tr>
+                            {% if not workshop.status and workshop.tnc_accepted %}
+                                <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
+                                <td>{{ workshop.date | date }}</td>
+                                <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
+                            {% endif %}
+                        </tr>
+                        </tbody>
 
-                {% endfor %}
-            </table>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     {% endif %}
 
