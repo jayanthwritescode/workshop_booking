@@ -1,8 +1,8 @@
 import React from 'react';
 
 const EmptyState = ({ 
-  title = "No results found", 
-  message = "Try adjusting your search or filters to find what you're looking for",
+  title = "No workshops found", 
+  message = "No workshops match your current search or filter criteria. Try clearing filters or adjusting your search terms.",
   actionText = "Clear Filters",
   onAction,
   icon = "search_off"

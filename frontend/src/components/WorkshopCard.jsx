@@ -26,19 +26,19 @@ const WorkshopCard = ({ workshop, onViewDetails }) => {
 
         <div className="workshop-details">
           <div className="workshop-detail-item">
-            <span className="detail-label">Date:</span>
+            <span className="detail-label">Date</span>
             <span className="detail-value">{workshop.date}</span>
           </div>
           <div className="workshop-detail-item">
-            <span className="detail-label">Coordinator:</span>
+            <span className="detail-label">Coordinator</span>
             <span className="detail-value">{workshop.coordinator}</span>
           </div>
           <div className="workshop-detail-item">
-            <span className="detail-label">Institute:</span>
+            <span className="detail-label">Institute</span>
             <span className="detail-value">{workshop.institute}</span>
           </div>
           <div className="workshop-detail-item">
-            <span className="detail-label">Instructor:</span>
+            <span className="detail-label">Instructor</span>
             <span className="detail-value">{workshop.instructor}</span>
           </div>
         </div>

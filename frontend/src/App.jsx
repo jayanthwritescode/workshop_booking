@@ -226,8 +226,9 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/statistics" element={<Statistics />} />
           <Route path="/workshops" element={<Workshops />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="/status" element={<Statistics />} />
           <Route path="/workshop-types" element={<WorkshopTypes />} />
         </Routes>
       </Layout>

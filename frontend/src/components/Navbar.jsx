@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const isActive = (path) => {
+    return location.pathname === path;
   };
 
   return (
@@ -13,7 +18,6 @@ const Navbar = () => {
       <div className="container">
         <div className="d-flex justify-content-between align-items-center">
           <Link to="/" className="navbar-brand">
-            <span className="navbar-icon">work</span>
             FOSSEE Workshops
           </Link>
           
@@ -29,27 +33,28 @@ const Navbar = () => {
         <div className={`navbar-collapse ${isOpen ? 'open' : ''}`}>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/" className="nav-link" onClick={() => setIsOpen(false)}>
-                <span className="nav-icon">home</span>
+              <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/statistics" className="nav-link" onClick={() => setIsOpen(false)}>
-                <span className="nav-icon">bar_chart</span>
-                Workshop Statistics
+              <Link to="/workshops" className={`nav-link ${isActive('/workshops') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>
+                Workshops
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/workshops" className="nav-link" onClick={() => setIsOpen(false)}>
-                <span className="nav-icon">dashboard</span>
-                Workshop Status
+              <Link to="/statistics" className={`nav-link ${isActive('/statistics') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>
+                Statistics
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/workshop-types" className="nav-link" onClick={() => setIsOpen(false)}>
-                <span className="nav-icon">list</span>
-                Workshop Types
+              <Link to="/status" className={`nav-link ${isActive('/status') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>
+                Status
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/workshop-types" className={`nav-link ${isActive('/workshop-types') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>
+                Types
               </Link>
             </li>
           </ul>
