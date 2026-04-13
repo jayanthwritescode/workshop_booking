@@ -966,6 +966,35 @@ h6 { font-size: 0.875rem; }
   flex: 1;
 }
 
+.workshop-skill-level {
+  margin-bottom: var(--space-3);
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.skill-beginner {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.skill-intermediate {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.skill-advanced {
+  background-color: var(--color-primary);
+  color: white;
+}
+
 /* Filter Chips styles */
 .filter-chips {
   display: flex;

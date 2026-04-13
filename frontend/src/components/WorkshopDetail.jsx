@@ -5,6 +5,7 @@ const WorkshopDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+  const [showReminderMessage, setShowReminderMessage] = useState(false);
 
   // Mock workshop data - would come from API
   const workshop = {
@@ -28,6 +29,7 @@ const WorkshopDetail = () => {
     seatsTotal: 50,
     seatsAvailable: 23,
     software: 'Python',
+    skillLevel: 'Intermediate',
   };
 
   const getBadgeClass = (status) => {
@@ -66,6 +68,53 @@ const WorkshopDetail = () => {
     return 'Register';
   };
 
+  const getSkillLevelClass = (skillLevel) => {
+    switch (skillLevel?.toLowerCase()) {
+      case 'beginner':
+        return 'skill-beginner';
+      case 'intermediate':
+        return 'skill-intermediate';
+      case 'advanced':
+        return 'skill-advanced';
+      default:
+        return 'skill-intermediate';
+    }
+  };
+
+  const generateICSFile = () => {
+    const date = new Date(workshop.date);
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + 1); // Assume 1 day event
+
+    const formatDate = (d) => {
+      return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    };
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//FOSSEE Workshops//EN
+BEGIN:VEVENT
+UID:${workshop.id}@fossee.in
+DTSTAMP:${formatDate(new Date())}
+DTSTART:${formatDate(date)}
+DTEND:${formatDate(endDate)}
+SUMMARY:${workshop.workshopType}
+DESCRIPTION:${workshop.description}\\n\\nLocation: ${workshop.institute}\\nInstructor: ${workshop.instructor}
+LOCATION:${workshop.institute}
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${workshop.workshopType.replace(/\s+/g, '_')}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const handleRegister = () => {
     if (workshop.seatsAvailable > 0) {
       setShowRegistrationModal(true);
@@ -75,18 +124,38 @@ const WorkshopDetail = () => {
     }
   };
 
+  const handleConfirmRegistration = () => {
+    setShowRegistrationModal(false);
+    setShowReminderMessage(true);
+    // Hide reminder message after 5 seconds
+    setTimeout(() => setShowReminderMessage(false), 5000);
+  };
+
   return (
     <div className="container">
       <button className="btn btn-secondary mb-4" onClick={() => navigate('/workshops')}>
         ← Back to Workshops
       </button>
 
+      {showReminderMessage && (
+        <div className="alert alert-success mb-4">
+          Registration successful! You will receive an email reminder before the workshop.
+        </div>
+      )}
+
       <div className="workshop-detail-page">
         <div className="workshop-detail-header">
           <div className="workshop-detail-accent-strip" style={{ backgroundColor: getAccentColor(workshop.status) }}></div>
           <div className="workshop-detail-content">
             <div className="d-flex justify-content-between align-items-start mb-3">
-              <h1 className="workshop-detail-title">{workshop.workshopType}</h1>
+              <div>
+                <h1 className="workshop-detail-title">{workshop.workshopType}</h1>
+                {workshop.skillLevel && (
+                  <span className={`skill-tag ${getSkillLevelClass(workshop.skillLevel)} mb-2`}>
+                    {workshop.skillLevel}
+                  </span>
+                )}
+              </div>
               <span className={`badge ${getBadgeClass(workshop.status)}`}>
                 {workshop.status}
               </span>
@@ -118,6 +187,10 @@ const WorkshopDetail = () => {
                 <span className="meta-value">{workshop.seatsAvailable} / {workshop.seatsTotal}</span>
               </div>
             </div>
+
+            <button className="btn btn-secondary mt-3" onClick={generateICSFile}>
+              Add to Calendar
+            </button>
           </div>
         </div>
 
@@ -224,10 +297,7 @@ const WorkshopDetail = () => {
               <button className="btn btn-secondary" onClick={() => setShowRegistrationModal(false)}>
                 Cancel
               </button>
-              <button className="btn btn-primary" onClick={() => {
-                setShowRegistrationModal(false);
-                alert('Registration successful!');
-              }}>
+              <button className="btn btn-primary" onClick={handleConfirmRegistration}>
                 Confirm Registration
               </button>
             </div>

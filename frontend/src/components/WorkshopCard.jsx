@@ -53,6 +53,19 @@ const WorkshopCard = ({ workshop, onViewDetails }) => {
     }
   };
 
+  const getSkillLevelClass = (skillLevel) => {
+    switch (skillLevel?.toLowerCase()) {
+      case 'beginner':
+        return 'skill-beginner';
+      case 'intermediate':
+        return 'skill-intermediate';
+      case 'advanced':
+        return 'skill-advanced';
+      default:
+        return 'skill-intermediate';
+    }
+  };
+
   return (
     <div className="card workshop-card">
       <div className="workshop-accent-strip" style={{ backgroundColor: getAccentColor(workshop.status) }}></div>
@@ -63,6 +76,14 @@ const WorkshopCard = ({ workshop, onViewDetails }) => {
             {workshop.status}
           </span>
         </div>
+
+        {workshop.skillLevel && (
+          <div className="workshop-skill-level">
+            <span className={`skill-tag ${getSkillLevelClass(workshop.skillLevel)}`}>
+              {workshop.skillLevel}
+            </span>
+          </div>
+        )}
 
         <div className="workshop-details">
           <div className="workshop-detail-item">

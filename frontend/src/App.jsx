@@ -24,7 +24,8 @@ const Home = () => {
       coordinator: 'John Doe',
       institute: 'IIT Bombay',
       instructor: 'Jane Smith',
-      status: 'Accepted'
+      status: 'Accepted',
+      skillLevel: 'Intermediate'
     },
     {
       id: 2,
@@ -33,7 +34,8 @@ const Home = () => {
       coordinator: 'Alice Johnson',
       institute: 'IIT Delhi',
       instructor: 'Bob Wilson',
-      status: 'Proposed'
+      status: 'Proposed',
+      skillLevel: 'Beginner'
     },
     {
       id: 3,
@@ -42,7 +44,8 @@ const Home = () => {
       coordinator: 'Charlie Brown',
       institute: 'IIT Madras',
       instructor: 'Diana Prince',
-      status: 'Completed'
+      status: 'Completed',
+      skillLevel: 'Advanced'
     }
   ];
 
@@ -334,7 +337,8 @@ const Workshops = () => {
       coordinator: 'John Doe',
       institute: 'IIT Bombay',
       instructor: 'Jane Smith',
-      status: 'Accepted'
+      status: 'Accepted',
+      skillLevel: 'Intermediate'
     },
     {
       id: 2,
@@ -343,7 +347,8 @@ const Workshops = () => {
       coordinator: 'Alice Johnson',
       institute: 'IIT Delhi',
       instructor: 'Bob Wilson',
-      status: 'Proposed'
+      status: 'Proposed',
+      skillLevel: 'Beginner'
     },
     {
       id: 3,
@@ -352,7 +357,8 @@ const Workshops = () => {
       coordinator: 'Charlie Brown',
       institute: 'IIT Madras',
       instructor: 'Diana Prince',
-      status: 'Completed'
+      status: 'Completed',
+      skillLevel: 'Advanced'
     },
     {
       id: 4,
@@ -361,7 +367,8 @@ const Workshops = () => {
       coordinator: 'Eve Davis',
       institute: 'IIT Kharagpur',
       instructor: 'Frank Miller',
-      status: 'Accepted'
+      status: 'Accepted',
+      skillLevel: 'Intermediate'
     },
     {
       id: 5,
@@ -370,7 +377,8 @@ const Workshops = () => {
       coordinator: 'Grace Lee',
       institute: 'IIT Kanpur',
       instructor: 'Henry Ford',
-      status: 'Proposed'
+      status: 'Proposed',
+      skillLevel: 'Advanced'
     },
     {
       id: 6,
@@ -379,7 +387,8 @@ const Workshops = () => {
       coordinator: 'Ivy Chen',
       institute: 'IIT Roorkee',
       instructor: 'Jack White',
-      status: 'Accepted'
+      status: 'Accepted',
+      skillLevel: 'Intermediate'
     }
   ];
 
