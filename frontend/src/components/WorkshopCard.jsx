@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WorkshopCard = ({ workshop, onViewDetails, onRegister }) => {
+const WorkshopCard = React.memo(({ workshop, onViewDetails, onRegister }) => {
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
       case 'accepted':
@@ -113,6 +113,6 @@ const WorkshopCard = ({ workshop, onViewDetails, onRegister }) => {
       </div>
     </div>
   );
-};
+});
 
 export default WorkshopCard;

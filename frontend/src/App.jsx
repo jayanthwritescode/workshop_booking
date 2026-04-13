@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import SearchBar from './components/SearchBar';
@@ -328,12 +328,12 @@ const Workshops = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const navigate = useNavigate();
 
-  // Simulate API call loading
+  // Simulate API call loading - reduced delay for better performance
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 300);
     return () => clearTimeout(timer);
   }, [searchQuery, filters]);
 
@@ -413,35 +413,36 @@ const Workshops = () => {
     }
   ];
 
-  const handleSearch = (query) => {
+  const handleSearch = useCallback((query) => {
     setSearchQuery(query);
-  };
+  }, []);
 
-  const handleFilterChange = (key, value) => {
+  const handleFilterChange = useCallback((key, value) => {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
-  };
+  }, []);
 
-  const handleRemoveFilter = (filterKey) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterKey]: ''
-    }));
-  };
+  const handleRemoveFilter = useCallback((key) => {
+    setFilters(prev => {
+      const newFilters = { ...prev };
+      delete newFilters[key];
+      return newFilters;
+    });
+  }, []);
 
-  const handleClearAllFilters = () => {
+  const handleClearAllFilters = useCallback(() => {
     setFilters({});
-  };
+  }, []);
 
-  const handleViewDetails = (workshop) => {
+  const handleViewDetails = useCallback((workshop) => {
     navigate(`/workshops/${workshop.id}`);
-  };
+  }, [navigate]);
 
-  const handleRegister = (workshop) => {
+  const handleRegister = useCallback((workshop) => {
     alert(`Registration for ${workshop.workshopType} would be handled here`);
-  };
+  }, []);
 
   // Filter workshops based on search and filters
   const filteredWorkshops = mockWorkshops.filter(workshop => {

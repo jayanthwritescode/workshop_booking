@@ -548,6 +548,11 @@ h6 { font-size: 0.875rem; }
   .nav-link-dashboard {
     text-align: center;
     margin-top: var(--space-2);
+    padding: 8px 20px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .navbar-nav {

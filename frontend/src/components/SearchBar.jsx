@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SearchBar = ({ onSearch, placeholder = "Search workshops..." }) => {
+const SearchBar = React.memo(({ onSearch, placeholder = "Search workshops..." }) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e) => {
@@ -32,6 +32,6 @@ const SearchBar = ({ onSearch, placeholder = "Search workshops..." }) => {
       </div>
     </form>
   );
-};
+});
 
 export default SearchBar;

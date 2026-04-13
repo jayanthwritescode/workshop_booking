@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmptyState = ({ 
+const EmptyState = React.memo(({ 
   title = "No workshops found", 
   message = "No workshops match your current search or filter criteria. Try clearing filters or adjusting your search terms.",
   actionText = "Clear Filters",
@@ -23,6 +23,6 @@ const EmptyState = ({
       )}
     </div>
   );
-};
+});
 
 export default EmptyState;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FilterChips = ({ filters, onRemoveFilter, onClearAll }) => {
+const FilterChips = React.memo(({ filters, onRemoveFilter, onClearAll }) => {
   const getFilterLabel = (key, value) => {
     switch (key) {
       case 'workshopType':
@@ -79,6 +79,6 @@ const FilterChips = ({ filters, onRemoveFilter, onClearAll }) => {
       )}
     </div>
   );
-};
+});
 
 export default FilterChips;
