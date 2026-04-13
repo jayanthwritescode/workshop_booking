@@ -9,9 +9,11 @@
     <form action="{{URL_ROOT}}/edit_profile/" method="post" >
     {% csrf_token %}
       <center>
-        <table class="table table-bordered">
-          {{ form.as_table }}
-        </table>
+        <div class="table-responsive-wrapper">
+            <table class="table table-bordered">
+              {{ form.as_table }}
+            </table>
+        </div>
       </center>
       <br>
         <button class="btn btn-primary pull-right" type="submit">Save Profile</button>

@@ -6,39 +6,41 @@
 
 {% block content %}
     <div class="container">
-        <table class="table table-bordered">
-            <tr>
-                <th><label for="id_first_name">Workshop Type :</label></th>
-                <td><label for="id_first_name"><a
-                        href="{% url 'workshop_app:workshop_type_details' workshop.workshop_type_id %}">{{ workshop.workshop_type }}</a></label>
-                </td>
-            </tr>
-            <tr>
-                <th><label for="id_last_name">Date :</label></th>
-                <td><label for="id_last_name">{{ workshop.date }}</label></td>
-            </tr>
-            <tr>
-                <th><label for="id_email">Coordinator :</label></th>
-                <td><label for="id_email">{{ workshop.coordinator.get_full_name|title }}</label>
-                </td>
-            </tr>
-            {% if workshop.status %}
+        <div class="table-responsive-wrapper">
+            <table class="table table-bordered">
                 <tr>
-                    <th><label for="id_institute">Status :</label></th>
-                    <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
-                </tr>
-                <tr>
-                    <th><label for="id_phone_number">Instructor :</label></th>
-                    <td><label for="id_email">{{ workshop.instructor.get_full_name|title }}</label>
+                    <th><label for="id_first_name">Workshop Type :</label></th>
+                    <td><label for="id_first_name"><a
+                            href="{% url 'workshop_app:workshop_type_details' workshop.workshop_type_id %}">{{ workshop.workshop_type }}</a></label>
                     </td>
                 </tr>
-            {% else %}
                 <tr>
-                    <th><label for="id_institute">Status :</label></th>
-                    <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
+                    <th><label for="id_last_name">Date :</label></th>
+                    <td><label for="id_last_name">{{ workshop.date }}</label></td>
                 </tr>
-            {% endif %}
-        </table>
+                <tr>
+                    <th><label for="id_email">Coordinator :</label></th>
+                    <td><label for="id_email">{{ workshop.coordinator.get_full_name|title }}</label>
+                    </td>
+                </tr>
+                {% if workshop.status %}
+                    <tr>
+                        <th><label for="id_institute">Status :</label></th>
+                        <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_phone_number">Instructor :</label></th>
+                        <td><label for="id_email">{{ workshop.instructor.get_full_name|title }}</label>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th><label for="id_institute">Status :</label></th>
+                        <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
         <br>
         <div class="container">
             <div class="card mt-2 mb-5">
