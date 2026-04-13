@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import SearchBar from './components/SearchBar';
 import FilterPanel from './components/FilterPanel';
 import FilterChips from './components/FilterChips';
 import WorkshopCard from './components/WorkshopCard';
+import WorkshopCardSkeleton from './components/WorkshopCardSkeleton';
+import EmptyState from './components/EmptyState';
 
 // Placeholder pages - will implement in next steps
 const Home = () => (
@@ -36,6 +38,16 @@ const Statistics = () => (
 const Workshops = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate API call loading
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [searchQuery, filters]);
 
   // Mock data - will be replaced with API calls
   const mockWorkshops = [
@@ -162,7 +174,13 @@ const Workshops = () => {
         </div>
       )}
 
-      {filteredWorkshops.length > 0 ? (
+      {isLoading ? (
+        <div className="workshop-cards-grid">
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <WorkshopCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : filteredWorkshops.length > 0 ? (
         <div className="workshop-cards-grid">
           {filteredWorkshops.map(workshop => (
             <WorkshopCard
@@ -174,8 +192,14 @@ const Workshops = () => {
         </div>
       ) : (
         <div className="card">
-          <div className="card-body text-center py-4">
-            <p className="text-muted mb-0">No workshops found matching your criteria</p>
+          <div className="card-body">
+            <EmptyState
+              title="No workshops found"
+              message="Try adjusting your search or filters to find what you're looking for"
+              actionText="Clear Filters"
+              onAction={handleClearAllFilters}
+              icon="search_off"
+            />
           </div>
         </div>
       )}

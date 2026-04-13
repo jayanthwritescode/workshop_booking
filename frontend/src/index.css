@@ -772,3 +772,166 @@ h6 { font-size: 1rem; }
   background-color: var(--color-secondary);
   color: white;
 }
+
+/* Skeleton Loader styles */
+.skeleton {
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-title,
+.skeleton-badge,
+.skeleton-label,
+.skeleton-value,
+.skeleton-button {
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 25%,
+    #f0f0f0 50%,
+    #e0e0e0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  height: 20px;
+  width: 70%;
+}
+
+.skeleton-badge {
+  height: 20px;
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.skeleton-label {
+  height: 14px;
+  width: 60px;
+}
+
+.skeleton-value {
+  height: 14px;
+  width: 100px;
+}
+
+.skeleton-button {
+  height: 32px;
+  width: 100px;
+}
+
+/* Empty State styles */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.empty-state-icon {
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.empty-state-icon .icon {
+  font-size: 4rem;
+  color: var(--color-secondary);
+}
+
+.empty-state-title {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.empty-state-message {
+  margin: 0 0 var(--spacing-lg) 0;
+  font-size: 1rem;
+  color: var(--color-secondary);
+  max-width: 400px;
+}
+
+/* Main content transition */
+.main-content {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced button transitions */
+.btn {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.btn:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* Card entrance animation */
+.workshop-cards-grid {
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
