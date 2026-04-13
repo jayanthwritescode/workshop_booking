@@ -5,6 +5,7 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
   const [localFilters, setLocalFilters] = useState({
     workshopType: filters.workshopType || '',
     state: filters.state || '',
+    institute: filters.institute || '',
     fromDate: filters.fromDate || '',
     toDate: filters.toDate || '',
     status: filters.status || '',
@@ -30,6 +31,7 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
     const clearedFilters = {
       workshopType: '',
       state: '',
+      institute: '',
       fromDate: '',
       toDate: '',
       status: '',
@@ -41,7 +43,7 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
 
   return (
     <>
-      <button className="filter-toggle-button" onClick={handleToggle}>
+      <button className="btn btn-secondary filter-toggle-button" onClick={handleToggle}>
         Filters
         {Object.values(localFilters).some(value => value) && (
           <span className="filter-badge"></span>
@@ -60,20 +62,21 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
 
             <div className="filter-body">
               <div className="filter-section">
-                <h4>Workshop</h4>
+                <h4>Software</h4>
                 <div className="form-group">
-                  <label className="form-label">Type</label>
+                  <label className="form-label">Tool</label>
                   <select
                     className="form-control"
                     value={localFilters.workshopType}
                     onChange={(e) => handleChange('workshopType', e.target.value)}
                   >
-                    <option value="">All Types</option>
+                    <option value="">All Tools</option>
                     <option value="python">Python</option>
                     <option value="scilab">Scilab</option>
                     <option value="openfoam">OpenFOAM</option>
                     <option value="dwsim">DWSIM</option>
-                    <option value="oc">OpenModelica</option>
+                    <option value="openmodelica">OpenModelica</option>
+                    <option value="eos">eSim</option>
                   </select>
                 </div>
 
@@ -94,6 +97,23 @@ const FilterPanel = ({ onFilterChange, filters = {} }) => {
 
               <div className="filter-section">
                 <h4>Location</h4>
+                <div className="form-group">
+                  <label className="form-label">Institute</label>
+                  <select
+                    className="form-control"
+                    value={localFilters.institute}
+                    onChange={(e) => handleChange('institute', e.target.value)}
+                  >
+                    <option value="">All Institutes</option>
+                    <option value="iit-bombay">IIT Bombay</option>
+                    <option value="iit-delhi">IIT Delhi</option>
+                    <option value="iit-madras">IIT Madras</option>
+                    <option value="iit-kharagpur">IIT Kharagpur</option>
+                    <option value="iit-kanpur">IIT Kanpur</option>
+                    <option value="iit-roorkee">IIT Roorkee</option>
+                  </select>
+                </div>
+
                 <div className="form-group">
                   <label className="form-label">State</label>
                   <select
