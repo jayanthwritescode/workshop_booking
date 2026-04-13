@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import SearchBar from './components/SearchBar';
 import FilterPanel from './components/FilterPanel';
+import WorkshopCard from './components/WorkshopCard';
 
 // Placeholder pages - will implement in next steps
 const Home = () => (
@@ -35,6 +36,64 @@ const Workshops = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({});
 
+  // Mock data - will be replaced with API calls
+  const mockWorkshops = [
+    {
+      id: 1,
+      workshopType: 'Python for Scientific Computing',
+      date: '2024-02-15',
+      coordinator: 'John Doe',
+      institute: 'IIT Bombay',
+      instructor: 'Jane Smith',
+      status: 'Accepted'
+    },
+    {
+      id: 2,
+      workshopType: 'Scilab Basics',
+      date: '2024-02-20',
+      coordinator: 'Alice Johnson',
+      institute: 'IIT Delhi',
+      instructor: 'Bob Wilson',
+      status: 'Proposed'
+    },
+    {
+      id: 3,
+      workshopType: 'OpenFOAM CFD',
+      date: '2024-01-10',
+      coordinator: 'Charlie Brown',
+      institute: 'IIT Madras',
+      instructor: 'Diana Prince',
+      status: 'Completed'
+    },
+    {
+      id: 4,
+      workshopType: 'DWSIM Process Simulation',
+      date: '2024-03-05',
+      coordinator: 'Eve Davis',
+      institute: 'IIT Kharagpur',
+      instructor: 'Frank Miller',
+      status: 'Accepted'
+    },
+    {
+      id: 5,
+      workshopType: 'OpenModelica Modeling',
+      date: '2024-03-12',
+      coordinator: 'Grace Lee',
+      institute: 'IIT Kanpur',
+      instructor: 'Henry Ford',
+      status: 'Proposed'
+    },
+    {
+      id: 6,
+      workshopType: 'Python for Data Science',
+      date: '2024-02-28',
+      coordinator: 'Ivy Chen',
+      institute: 'IIT Roorkee',
+      instructor: 'Jack White',
+      status: 'Accepted'
+    }
+  ];
+
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -42,6 +101,26 @@ const Workshops = () => {
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
+
+  const handleViewDetails = (workshop) => {
+    console.log('View details for:', workshop);
+    // Will implement navigation to details page
+  };
+
+  // Filter workshops based on search and filters
+  const filteredWorkshops = mockWorkshops.filter(workshop => {
+    const matchesSearch = !searchQuery || 
+      workshop.workshopType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      workshop.coordinator.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      workshop.institute.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesFilters = 
+      (!filters.workshopType || workshop.workshopType.toLowerCase().includes(filters.workshopType.toLowerCase())) &&
+      (!filters.state || workshop.institute.toLowerCase().includes(filters.state.toLowerCase())) &&
+      (!filters.status || workshop.status.toLowerCase() === filters.status.toLowerCase());
+    
+    return matchesSearch && matchesFilters;
+  });
 
   return (
     <div className="container">
@@ -52,24 +131,41 @@ const Workshops = () => {
         <FilterPanel onFilterChange={handleFilterChange} filters={filters} />
       </div>
 
-      <div className="card">
-        <div className="card-header">
-          <h2>Workshop Status</h2>
-        </div>
-        <div className="card-body">
+      {(searchQuery || Object.values(filters).some(value => value)) && (
+        <div className="mb-3">
           {searchQuery && (
-            <p className="text-muted mb-3">
-              Search results for: <strong>{searchQuery}</strong>
-            </p>
+            <span className="text-muted">
+              Search: <strong>{searchQuery}</strong>
+            </span>
           )}
           {Object.values(filters).some(value => value) && (
-            <p className="text-muted mb-3">
-              Active filters applied
-            </p>
+            <span className="text-muted ml-2">
+              Filters applied
+            </span>
           )}
-          <p>Workshop cards will be displayed here - coming soon</p>
+          <span className="text-muted ml-2">
+            ({filteredWorkshops.length} results)
+          </span>
         </div>
-      </div>
+      )}
+
+      {filteredWorkshops.length > 0 ? (
+        <div className="workshop-cards-grid">
+          {filteredWorkshops.map(workshop => (
+            <WorkshopCard
+              key={workshop.id}
+              workshop={workshop}
+              onViewDetails={handleViewDetails}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="card">
+          <div className="card-body text-center py-4">
+            <p className="text-muted mb-0">No workshops found matching your criteria</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
