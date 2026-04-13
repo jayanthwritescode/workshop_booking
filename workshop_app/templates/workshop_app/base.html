@@ -10,14 +10,6 @@
         {% endblock %}
     </title>
 
-    <script src="{% static 'workshop_app/js/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'workshop_app/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'workshop_app/js/popper.min.js' %}"></script>
-    <script src="{% static 'workshop_app/js/toastr.min.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
     {% block extra-dependencies %}
     {% endblock %}
 
@@ -33,7 +25,7 @@
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 {% block header %}
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark fixed-top">
         {% if user.is_authenticated %}
@@ -110,11 +102,26 @@
     </nav>
 {% endblock %}
 
-<div class="base-content">
+<main class="base-content flex-grow-1 pt-5">
     {% block content %}
         <h1>Base Template Content. Please override me</h1>
     {% endblock %}
-</div>
+</main>
+
+<footer class="footer mt-auto">
+    {% block footer %}
+       <div class="container py-3">
+           Developed by FOSSEE group, IIT Bombay
+       </div>
+    {% endblock %}
+</footer>
+
+<script src="{% static 'workshop_app/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'workshop_app/js/popper.min.js' %}"></script>
+<script src="{% static 'workshop_app/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'workshop_app/js/toastr.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <script>
     {% if messages %}
@@ -125,11 +132,4 @@
 </script>
 
 </body>
-<footer class="footer">
-    {% block footer %}
-       <div class="container">
-           Developed by FOSSEE group, IIT Bombay
-       </div> 
-    {% endblock %}
-</footer>
 </html>
