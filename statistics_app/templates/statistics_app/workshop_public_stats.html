@@ -5,89 +5,114 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
+        <!-- Filters Section -->
         <div class="col-md-3">
             <form method="GET">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3><u>Filters</u></h3>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{% url 'statistics_app:public' %}" class="btn btn-outline-info">
-                                    <i class="fa fa-times"></i>&nbsp;Clear
-                                </a>
-                            </div>
-                        </div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Filters</h5>
+                        <a href="{% url 'statistics_app:public' %}" class="btn btn-sm btn-outline-info">
+                            <i class="fa fa-times"></i>&nbsp;Clear
+                        </a>
                     </div>
                     <div class="card-body">
-                        <div>From date: {{form.from_date}}</div>
-                        <div>To date: {{form.to_date}}</div>
-                        <div>Workshop: {{form.workshop_type}}</div>
-                        <div>State: {{form.state}}</div>
-                        <div>{{form.sort.help_text}}: {{form.sort}}</div>
+                        <div class="form-group">
+                            <label>From date</label>
+                            {{form.from_date}}
+                        </div>
+                        <div class="form-group">
+                            <label>To date</label>
+                            {{form.to_date}}
+                        </div>
+                        <div class="form-group">
+                            <label>Workshop</label>
+                            {{form.workshop_type}}
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            {{form.state}}
+                        </div>
+                        <div class="form-group">
+                            <label>{{form.sort.help_text}}</label>
+                            {{form.sort}}
+                        </div>
                         {% if request.user.is_authenticated %}
-                        <div>{{form.show_workshops.help_text}}: {{form.show_workshops}}</div>
+                        <div class="form-group">
+                            <label>{{form.show_workshops.help_text}}</label>
+                            {{form.show_workshops}}
+                        </div>
                         {% endif %}
-                        <br>
-                        <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-eye"></i>&nbsp;View
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-info" name="download" value="download">
-                                    <i class="fa fa-download"></i>&nbsp;Download
-                                </button>
-                            </div>
+                        <hr>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success flex-fill">
+                                <i class="fa fa-eye"></i>&nbsp;View
+                            </button>
+                            <button type="submit" class="btn btn-info flex-fill" name="download" value="download">
+                                <i class="fa fa-download"></i>&nbsp;Download
+                            </button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col">
-            <div class="row">
-                <div class="col-md-6">
-                    {% include "statistics_app/paginator.html" %}
+
+        <!-- Main Content Section -->
+        <div class="col-md-9">
+            <!-- Analytics Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Analytics</h5>
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info" id="state_graph">
-                        <i class="fa fa-bar-chart"></i>&nbsp;State chart
-                    </button>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-info" id="type_graph">
-                        <i class="fa fa-bar-chart"></i>&nbsp;Workshops chart
-                    </button>
+                <div class="card-body">
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-info" id="state_graph">
+                            <i class="fa fa-bar-chart"></i>&nbsp;State Chart
+                        </button>
+                        <button class="btn btn-info" id="type_graph">
+                            <i class="fa fa-bar-chart"></i>&nbsp;Workshops Chart
+                        </button>
+                    </div>
                 </div>
             </div>
-            <table class="table table-responsive-sm">
-                <thead>
-                    <tr>
-                        <th>Sr No.</th>
-                        <th>Coordinator Name</th>
-                        <th>Institute Name</th>
-                        <th>Instructor Name</th>
-                        <th>Workshop Name</th>
-                        <th>Workshop Date</th>
-                    </tr>
-                </thead>
-                {% csrf_token %}
-                {% for workshop in objects %}
-                    <tbody>
-                        <tr>
-                            <td>{{ forloop.counter0|add:objects.start_index}}</td>
-                            <td>{{ workshop.coordinator.get_full_name | capfirst }}</td>
-                            <td>{{ workshop.coordinator.profile.institute | capfirst }}</td>
-                            <td>{{ workshop.instructor.get_full_name | capfirst }}</td>
-                            <td>{{ workshop.workshop_type.name }}</td>
-                            <td>{{ workshop.date | date}}</td>
-                        </tr>
-                    </tbody>
-                {% endfor %}
-            </table>
-            {% include "statistics_app/paginator.html" %}
+
+            <!-- Results Section -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Results</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive table-mobile-cards">
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th data-label="Sr No.">Sr No.</th>
+                                    <th data-label="Coordinator Name">Coordinator Name</th>
+                                    <th data-label="Institute Name">Institute Name</th>
+                                    <th data-label="Instructor Name">Instructor Name</th>
+                                    <th data-label="Workshop Name">Workshop Name</th>
+                                    <th data-label="Workshop Date">Workshop Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% csrf_token %}
+                                {% for workshop in objects %}
+                                    <tr>
+                                        <td data-label="Sr No.">{{ forloop.counter0|add:objects.start_index}}</td>
+                                        <td data-label="Coordinator Name">{{ workshop.coordinator.get_full_name | capfirst }}</td>
+                                        <td data-label="Institute Name">{{ workshop.coordinator.profile.institute | capfirst }}</td>
+                                        <td data-label="Instructor Name">{{ workshop.instructor.get_full_name | capfirst }}</td>
+                                        <td data-label="Workshop Name">{{ workshop.workshop_type.name }}</td>
+                                        <td data-label="Workshop Date">{{ workshop.date | date}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {% include "statistics_app/paginator.html" %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
