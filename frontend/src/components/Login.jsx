@@ -24,14 +24,14 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="container">
-        <div className="login-card">
-          <div className="login-header">
+    <div className="auth-page">
+      <div className="auth-container">
+        <div className="auth-card">
+          <div className="auth-header">
             <h1>Welcome Back</h1>
             <p className="text-muted">Sign in to access your dashboard</p>
           </div>
-          <form onSubmit={handleSubmit} className="login-form">
+          <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-group">
               <label className="form-label">Email</label>
               <input
@@ -60,7 +60,7 @@ const Login = () => {
               Sign In
             </button>
           </form>
-          <div className="login-footer">
+          <div className="auth-footer">
             <p className="text-muted">
               Don't have an account? <a href="/register" className="link">Register</a>
             </p>

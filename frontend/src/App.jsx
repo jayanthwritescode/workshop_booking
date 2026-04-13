@@ -10,6 +10,7 @@ import WorkshopDetail from './components/WorkshopDetail';
 import Dashboard from './components/Dashboard';
 import Statistics from './components/Statistics';
 import Login from './components/Login';
+import Signup from './components/Signup';
 
 // Home page with meaningful content
 const Home = () => {
@@ -676,6 +677,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/workshops" element={<Layout><Workshops /></Layout>} />
         <Route path="/workshops/:id" element={<Layout><WorkshopDetail /></Layout>} />
