@@ -595,7 +595,6 @@ const Workshops = () => {
                   message="Try adjusting your search or filters to find what you're looking for"
                   actionText="Clear Filters"
                   onAction={handleClearAllFilters}
-                  icon="search_off"
                 />
               </div>
             </div>
