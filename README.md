@@ -37,17 +37,17 @@ On mobile, navigation is a hamburger menu that slides in from the right. Card gr
 
 | Before | After |
 | --- | --- |
-| ![Before - Home](docs/screenshots/before-home.png) | ![After - Home](docs/screenshots/after-home.png) |
-| ![Before - Workshops](docs/screenshots/before-workshops.png) | ![After - Workshops](docs/screenshots/after-workshops.png) |
-| ![Before - Workshop cards](docs/screenshots/before-cards.png) | ![After - Workshop cards](docs/screenshots/after-cards.png) |
-| ![Before - Status](docs/screenshots/before-status.png) | ![After - Status](docs/screenshots/after-status.png) |
-| ![Before - Types](docs/screenshots/before-types.png) | ![After - Types](docs/screenshots/after-types.png) |
-
-Put all screenshots in docs/screenshots/ and name them consistently.
+| ![Before 1](assets/screenshots/before1.png) | ![After 1](assets/screenshots/after1.png) |
+| ![Before 2](assets/screenshots/before2.png) | ![After 2](assets/screenshots/after2.png) |
+| ![Before 3](assets/screenshots/before3.png) | ![After 3](assets/screenshots/after3.png) |
+| ![Before 4](assets/screenshots/before4.png) | ![After 4](assets/screenshots/after4.png) |
+| ![Before 5](assets/screenshots/before5.png) | ![After 5](assets/screenshots/after5.png) |
+| ![Before 6](assets/screenshots/before6.png) | ![After 6](assets/screenshots/after6.png) |
+| ![Before 7](assets/screenshots/before7.png) | ![After 7](assets/screenshots/after7.png) |
 
 ## Submission Checklist
 
-- [ ] Code is readable and well-structured
+- [x] Code is readable and well-structured
 - [ ] Git history shows progressive work (no single commit dumps)
 - [ ] README includes reasoning answers and setup instructions
 - [ ] Screenshots or live demo link included
