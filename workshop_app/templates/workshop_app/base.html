@@ -29,16 +29,16 @@
 {% block header %}
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark fixed-top">
         {% if user.is_authenticated %}
-        <a class="navbar-brand text-white" href="{% url 'workshop_app:index' %}">FOSSEE Workshops</a>
+        <a class="navbar-brand text-white font-weight-bold" href="{% url 'workshop_app:index' %}">FOSSEE Workshops</a>
         {% else %}
-        <a class="navbar-brand text-white" href="{{request.scheme}}://{{request.get_host}}">FOSSEE Workshops</a>
+        <a class="navbar-brand text-white font-weight-bold" href="{{request.scheme}}://{{request.get_host}}">FOSSEE Workshops</a>
         {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/">
                         Home
@@ -49,54 +49,71 @@
                         Workshop Statistics
                     </a>
                 </li>
+                {% if user.is_authenticated %}
+                    {% if request.user|has_group:"instructor" %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'statistics_app:team' %}">
+                            Team Statistics
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'workshop_app:workshop_status_instructor' %}">
+                            Workshop Status
+                        </a>
+                    </li>
+                    {% if not request.user|has_group:"instructor" %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'workshop_app:propose_workshop' %}">
+                                Propose Workshop
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'workshop_app:workshop_type_list' %}">
+                            Workshop Types
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
             {% if user.is_authenticated %}
-            <ul class="navbar-nav mr-auto">
-                {% if request.user|has_group:"instructor" %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'statistics_app:team' %}">
-                        Team Statistics
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <span class="material-icons align-middle mr-1">account_circle</span>
+                        <span class="align-middle">{{user.get_full_name|title}}</span>
                     </a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'workshop_app:workshop_status_instructor' %}">
-                        Workshop Status
-                    </a>
-                </li>
-                {% if not request.user|has_group:"instructor" %}
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'workshop_app:propose_workshop' %}">
-                            Propose Workshop
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'workshop_app:view_own_profile' %}">
+                            <span class="material-icons align-middle mr-2" style="font-size: 18px;">person</span>
+                            Profile
                         </a>
-                    </li>
-                {% endif %}
+                        <a class="dropdown-item" href="{% url 'password_change' %}">
+                             <span class="material-icons align-middle mr-2" style="font-size: 18px;">lock</span>
+                             Change Password
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="{% url 'workshop_app:logout' %}">
+                            <span class="material-icons align-middle mr-2" style="font-size: 18px;">logout</span>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'workshop_app:workshop_type_list' %}">
-                        Workshop Types
+                    <a class="nav-link text-white" href="{% url 'workshop_app:login' %}">
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary btn-sm ml-2" href="{% url 'workshop_app:register' %}">
+                        Sign Up
                     </a>
                 </li>
             </ul>
-            <div class="my-2 my-lg-0">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <span class="material-icons" style="vertical-align: middle">account_circle</span>
-                            <p style="display: inline; vertical-align: middle">
-                                {{user.get_full_name|title}}
-                            </p>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'workshop_app:view_own_profile' %}">Profile</a>
-                            <a class="dropdown-item" href="{% url 'password_change' %}">
-                                 Change Password
-                            </a>
-                            <a class="dropdown-item" href="{% url 'workshop_app:logout' %}">Logout</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
             {% endif %}
         </div>
     </nav>
