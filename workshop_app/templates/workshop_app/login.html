@@ -1,4 +1,5 @@
 {% extends 'workshop_app/base.html' %}
+{% load custom_filters %}
 
 {% block title %}
     Login
@@ -7,47 +8,43 @@
 {% block content %}
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-md-offset-6">
+            <div class="col-md-6 col-lg-5">
                 <div class="card">
                     <div class="card-body">
-                        <form class="px-3 py-3" method="post">
+                        <h3 class="card-title text-center mb-4">Sign In</h3>
+
+                        <form method="post">
                         {% csrf_token %}
                         {% if form.errors %}
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <div class="alert alert-dismissible alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-dismissible alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                    <strong>{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
+                            <div class="alert alert-danger">
+                                <strong>Please correct the errors below.</strong>
+                            </div>
                         {% endif %}
-                        <div class="form-group">
-                          <label for="id_username">Username</label>
-                          {{ form.username }}
+                        <div class="form-group mb-3">
+                          <label for="id_username" class="font-weight-bold">Username</label>
+                          {{ form.username|add_class:"form-control" }}
                         </div>
-                        <div class="form-group">
-                          <label for="id_password">Password</label>
-                          {{ form.password }}
+                        <div class="form-group mb-4">
+                          <label for="id_password" class="font-weight-bold">Password</label>
+                          {{ form.password|add_class:"form-control" }}
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-block py-2">Sign in</button>
                         </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'workshop_app:register' %}">New around here? Sign up</a>
-                        <a class="dropdown-item" href="{% url 'password_reset' %}">Forgot password?</a>
+
+                        <div class="text-center mt-4">
+                            <a href="{% url 'workshop_app:register' %}" class="text-decoration-none">New around here? Sign up</a>
+                            <span class="mx-2 text-muted">|</span>
+                            <a href="{% url 'password_reset' %}" class="text-decoration-none">Forgot password?</a>
+                        </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
+
+    <style>
+        .form-control {
+            padding: 0.75rem;
+        }
+    </style>
 {% endblock %}

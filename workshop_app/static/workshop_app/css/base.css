@@ -1,6 +1,11 @@
 /**
  * Base Styles
  */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 .navbar {
     z-index: 1000;
 }
@@ -14,6 +19,13 @@
 .base-content {
     padding-top: 5em;
     padding-bottom: 2em;
+}
+
+@media (max-width: 768px) {
+    .base-content {
+        padding-top: 4em;
+        padding-bottom: 1.5em;
+    }
 }
 
 /* Button improvements */
