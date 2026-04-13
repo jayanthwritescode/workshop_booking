@@ -8,6 +8,7 @@
     <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">Workshop Types</h2>
+        <div id="react-demo-badge"></div>
         {% if request.user|has_group:"instructor" %}
             <a href="{% url 'workshop_app:add_workshop_type' %}" class="btn btn-primary">
                 <span class="material-icons align-middle mr-1" style="font-size: 18px;">add</span>
@@ -105,4 +106,10 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/babel">
+    // Mount React Badge component as demo
+    const root = ReactDOM.createRoot(document.getElementById('react-demo-badge'));
+    root.render(React.createElement(ReactBadge, { text: 'Live', variant: 'success' }));
+</script>
 {% endblock %}
