@@ -4,7 +4,7 @@ This branch is called ui-responsive. The actual UI redesign is in the [ui-modern
 
 ## Demo
 
-
+https://github.com/user-attachments/assets/8f845e6c-5229-4594-a985-c16a772f4404
 
 ## Setup
 
