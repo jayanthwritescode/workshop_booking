@@ -39,16 +39,44 @@ __credits__ = ["Mahesh Gudi", "Aditya P.", "Ankit Javalkar",
 # Helper functions
 
 def is_email_checked(user):
+    """
+    Check if user email has been verified.
+
+    Args:
+        user: User object
+
+    Returns:
+        bool: True if email is verified, False otherwise
+    """
     return user.profile.is_email_verified
 
 
 def is_instructor(user):
-    """Check if the user is having instructor rights"""
+    """
+    Check if the user has instructor rights.
+
+    Args:
+        user: User object
+
+    Returns:
+        bool: True if user is in instructor group, False otherwise
+    """
     return user.groups.filter(name='instructor').exists()
 
 
 def get_landing_page(user):
-    # For now, landing pages of both instructor and coordinator are same
+    """
+    Get the appropriate landing page URL based on user position.
+
+    For now, landing pages of both instructor and coordinator are the same.
+    This function determines which view to redirect to after login.
+
+    Args:
+        user: User object
+
+    Returns:
+        str: URL for the user's landing page
+    """
     if is_instructor(user):
         return reverse('workshop_app:workshop_status_instructor')
     return reverse('workshop_app:workshop_status_coordinator')

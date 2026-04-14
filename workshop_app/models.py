@@ -158,8 +158,25 @@ class AttachmentFile(models.Model):
 
 
 class WorkshopManager(models.Manager):
+    """
+    Custom manager for Workshop model to provide aggregation methods
+    for statistics and reporting.
+    """
 
     def get_workshops_by_state(self, workshops):
+        """
+        Aggregate workshop data by state for visualization.
+
+        Takes a queryset of workshops and returns two lists:
+        - List of state names
+        - List of workshop counts per state
+
+        Args:
+            workshops: QuerySet of Workshop objects
+
+        Returns:
+            tuple: (list of state names, list of workshop counts)
+        """
         w = workshops.values_list("coordinator__profile__state", flat=True)
         states_map = dict(states)
         df = pd.DataFrame(list(w))
@@ -173,6 +190,19 @@ class WorkshopManager(models.Manager):
         return data_states, data_counts
 
     def get_workshops_by_type(self, workshops):
+        """
+        Aggregate workshop data by workshop type for visualization.
+
+        Takes a queryset of workshops and returns two lists:
+        - List of workshop type names
+        - List of workshop counts per type
+
+        Args:
+            workshops: QuerySet of Workshop objects
+
+        Returns:
+            tuple: (list of workshop type names, list of workshop counts)
+        """
         w = workshops.values_list("workshop_type__name", flat=True)
         df = pd.DataFrame(list(w))
         data_wstypes, data_counts = [], []

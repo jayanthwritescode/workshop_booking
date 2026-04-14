@@ -20,9 +20,12 @@ PWD_CHARS = letters + punctuation + digits
 
 
 class UserRegistrationForm(forms.Form):
-    """A Class to create new form for User's Registration.
-    It has the various fields and functions required to register
-    a new user to the system"""
+    """
+    Form for user registration.
+
+    This form handles coordinator and instructor registration with validation
+    for username, email, password, and profile information.
+    """
     required_css_class = 'required'
     errorlist_css_class = 'errorlist'
     username = forms.CharField(max_length=32, help_text='''Letters, digits,
@@ -46,6 +49,15 @@ class UserRegistrationForm(forms.Form):
     how_did_you_hear_about_us = forms.ChoiceField(choices=source)
 
     def clean_username(self):
+        """
+        Validate username format and uniqueness.
+
+        Returns:
+            str: Validated username
+
+        Raises:
+            forms.ValidationError: If username contains invalid characters or already exists
+        """
         u_name = self.cleaned_data["username"]
         if u_name.strip(UNAME_CHARS):
             msg = "Only letters, digits, period  are" \
@@ -58,6 +70,15 @@ class UserRegistrationForm(forms.Form):
             return u_name
 
     def clean_password(self):
+        """
+        Validate password format.
+
+        Returns:
+            str: Validated password
+
+        Raises:
+            forms.ValidationError: If password contains invalid characters
+        """
         pwd = self.cleaned_data['password']
         if pwd.strip(PWD_CHARS):
             raise forms.ValidationError("Only letters, digits and punctuation\
@@ -65,6 +86,15 @@ class UserRegistrationForm(forms.Form):
         return pwd
 
     def clean_confirm_password(self):
+        """
+        Validate that password confirmation matches password.
+
+        Returns:
+            str: Validated confirm password
+
+        Raises:
+            forms.ValidationError: If passwords do not match
+        """
         c_pwd = self.cleaned_data['confirm_password']
         pwd = self.data['password']
         if c_pwd != pwd:
@@ -73,12 +103,27 @@ class UserRegistrationForm(forms.Form):
         return c_pwd
 
     def clean_email(self):
+        """
+        Validate email uniqueness.
+
+        Returns:
+            str: Validated email
+
+        Raises:
+            forms.ValidationError: If email already exists in database
+        """
         user_email = self.cleaned_data['email']
         if User.objects.filter(email=user_email).exists():
             raise forms.ValidationError("This email already exists")
         return user_email
 
     def save(self):
+        """
+        Create new user and profile from form data.
+
+        Returns:
+            tuple: (username, password, activation_key) for the new user
+        """
         u_name = self.cleaned_data["username"]
         u_name = u_name.lower()
         pwd = self.cleaned_data["password"]
@@ -104,7 +149,11 @@ class UserRegistrationForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-    """Creates a form which will allow the user to log into the system."""
+    """
+    Form for user login authentication.
+
+    Validates username and password credentials.
+    """
 
     username = forms.CharField(max_length=32,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
@@ -113,6 +162,15 @@ class UserLoginForm(forms.Form):
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
     def clean(self):
+        """
+        Validate username and password combination.
+
+        Returns:
+            User: Authenticated user object
+
+        Raises:
+            forms.ValidationError: If credentials are missing or invalid
+        """
         super(UserLoginForm, self).clean()
         try:
             u_name, pwd = self.cleaned_data["username"], \
@@ -127,7 +185,9 @@ class UserLoginForm(forms.Form):
 
 class WorkshopForm(forms.ModelForm):
     """
-    Coordinators will propose a workshop and date 
+    Form for coordinators to propose workshops.
+
+    Allows coordinators to select a workshop type, date, and accept terms.
     """
     errorlist_css_class = 'errorlist'
 
@@ -155,7 +215,9 @@ class WorkshopForm(forms.ModelForm):
 
 class CommentsForm(forms.ModelForm):
     """
-    Users will post comments on workshops
+    Form for users to post comments on workshops.
+
+    Instructors can view all comments while coordinators can only view public comments.
     """
 
     def __init__(self, *args, **kwargs):
@@ -178,6 +240,12 @@ class CommentsForm(forms.ModelForm):
 
 
 class WorkshopTypeForm(forms.ModelForm):
+    """
+    Form for instructors to create and edit workshop types.
+
+    Includes fields for workshop name, description, duration, and terms.
+    """
+
     def __init__(self, *args, **kwargs):
         super(WorkshopTypeForm, self).__init__(*args, **kwargs)
         for field in self.visible_fields():
@@ -191,6 +259,12 @@ class WorkshopTypeForm(forms.ModelForm):
 
 
 class AttachmentFileForm(forms.ModelForm):
+    """
+    Form for uploading workshop attachment files.
+
+    Used by instructors to attach documents to workshop types.
+    """
+
     def __init__(self, *args, **kwargs):
         super(AttachmentFileForm, self).__init__(*args, **kwargs)
 
@@ -200,7 +274,12 @@ class AttachmentFileForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    """ profile form for coordinators and instructors """
+    """
+    Profile form for coordinators and instructors.
+
+    Allows users to update their profile information including institute,
+    department, phone number, and location.
+    """
 
     class Meta:
         model = Profile
