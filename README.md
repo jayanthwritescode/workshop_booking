@@ -4,7 +4,7 @@ This branch sits between the other two. The ui-responsive branch only fixed brok
 
 ## Demo
 
-<!-- Add your screen recording here -->
+https://github.com/user-attachments/assets/a9952e9a-22fb-4ad8-a469-756b1109d078
 
 ## Setup
 
