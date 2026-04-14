@@ -35,18 +35,16 @@ I decided not to do a full redesign because that was already covered in the ui-m
 
 | Before | After |
 | --- | --- |
-| ![Before - Home](docs/screenshots/before-home.png) | ![After - Home](docs/screenshots/after-home.png) |
-| ![Before - Workshops](docs/screenshots/before-workshops.png) | ![After - Workshops](docs/screenshots/after-workshops.png) |
-| ![Before - Workshop cards](docs/screenshots/before-cards.png) | ![After - Workshop cards](docs/screenshots/after-cards.png) |
-| ![Before - Navigation](docs/screenshots/before-nav.png) | ![After - Navigation](docs/screenshots/after-nav.png) |
-| ![Before - Buttons](docs/screenshots/before-buttons.png) | ![After - Buttons](docs/screenshots/after-buttons.png) |
-
-Put all screenshots in docs/screenshots/ and name them consistently.
+| ![Before 1](assets/screenshots/before1.png) | ![After 1](assets/screenshots/after1.png) |
+| ![Before 2](assets/screenshots/before2.png) | ![After 2](assets/screenshots/after2.png) |
+| ![Before 3](assets/screenshots/before3.png) | ![After 3](assets/screenshots/after3.png) |
+| ![Before 4](assets/screenshots/before4.png) | ![After 4](assets/screenshots/after4.png) |
+| ![Before 5](assets/screenshots/before5.png) | ![After 5](assets/screenshots/after5.png) |
 
 ## Submission Checklist
 
-- [ ] Code is readable and well-structured
-- [ ] Git history shows progressive work (no single commit dumps)
-- [ ] README includes reasoning answers and setup instructions
-- [ ] Screenshots or live demo link included
-- [ ] Code is documented where necessary
+- [x] Code is readable and well-structured
+- [x] Git history shows progressive work (no single commit dumps)
+- [x] README includes reasoning answers and setup instructions
+- [x] Screenshots or live demo link included
+- [x] Code is documented where necessary
