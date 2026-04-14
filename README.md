@@ -4,9 +4,13 @@ This branch is called ui-modernization for a reason. It is not trying to reinven
 
 ## Demo
 
-https://github.com/user-attachments/assets/YOUR-VIDEO-ID-HERE
+### Desktop Demo
 
-replace the above with your actual GitHub-hosted screen recording link before submitting.
+https://github.com/user-attachments/assets/1a24e4f6-61a8-47d0-963e-c7285ec76467
+
+### Mobile Demo
+
+https://github.com/user-attachments/assets/125c9572-7e27-4965-a01d-386bae2c0ace
 
 ## Setup
 
@@ -48,7 +52,7 @@ On mobile, navigation is a hamburger menu that slides in from the right. Card gr
 ## Submission Checklist
 
 - [x] Code is readable and well-structured
-- [ ] Git history shows progressive work (no single commit dumps)
-- [ ] README includes reasoning answers and setup instructions
-- [ ] Screenshots or live demo link included
+- [x] Git history shows progressive work (no single commit dumps)
+- [x] README includes reasoning answers and setup instructions
+- [x] Screenshots or live demo link included
 - [ ] Code is documented where necessary
